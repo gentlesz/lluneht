@@ -631,7 +631,20 @@
         color: rgba(255, 248, 228, 0.44);
       }
 
-      .detail-icon,
+      /* logo prefix in front of the ticker value */
+      .detail-ticker-logo {
+        display: inline-block;
+        width: 36px;
+        height: 36px;
+        object-fit: contain;
+        filter: invert(1);
+        opacity: 0.7;
+        vertical-align: middle;
+        margin-right: 10px;
+        position: relative;
+        top: -0.06em;
+      }
+
       .story-icon {
         width: 54px;
         height: 54px;
@@ -643,7 +656,6 @@
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
       }
 
-      .detail-icon img,
       .story-icon img {
         width: 26px;
         height: 26px;
@@ -1068,6 +1080,123 @@
         transform: scale(0.94);
       }
 
+      /* ── thunder break ── */
+      .thunder-break {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 140px 24px;
+        background: #040404;
+        overflow: hidden;
+      }
+
+      .thunder-word {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(5rem, 18vw, 16rem);
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: -0.06em;
+        line-height: 1;
+        color: #ffffff;
+        -webkit-text-stroke: 1.5px rgba(189, 147, 68, 0.72);
+        position: relative;
+        animation: thunder-idle 0.1s steps(1) infinite;
+        user-select: none;
+      }
+
+      .thunder-word::before,
+      .thunder-word::after {
+        content: attr(data-text);
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .thunder-word::before {
+        color: rgba(189, 147, 68, 0.65);
+        -webkit-text-stroke: 0;
+        animation: thunder-glitch-a 5s steps(1) infinite;
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+      }
+
+      .thunder-word::after {
+        color: rgba(255, 255, 255, 0.55);
+        -webkit-text-stroke: 0;
+        animation: thunder-glitch-b 5s steps(1) infinite;
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+      }
+
+      @keyframes thunder-idle {
+        0%, 96%  { opacity: 1; }
+        97%      { opacity: 0.88; }
+        98%      { opacity: 1; }
+        99%      { opacity: 0.92; }
+        100%     { opacity: 1; }
+      }
+
+      @keyframes thunder-glitch-a {
+        0%, 79%, 100% {
+          clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+          transform: none;
+          opacity: 0;
+        }
+        80% {
+          clip-path: polygon(0 18%, 100% 18%, 100% 42%, 0 42%);
+          transform: translate(-5px, -2px);
+          opacity: 1;
+        }
+        82% {
+          clip-path: polygon(0 62%, 100% 62%, 100% 78%, 0 78%);
+          transform: translate(4px, 3px);
+          opacity: 0.9;
+        }
+        84% {
+          clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+          opacity: 0;
+        }
+        88% {
+          clip-path: polygon(0 30%, 100% 30%, 100% 55%, 0 55%);
+          transform: translate(-3px, 1px);
+          opacity: 0.8;
+        }
+        90% {
+          clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+          opacity: 0;
+        }
+      }
+
+      @keyframes thunder-glitch-b {
+        0%, 81%, 100% {
+          clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+          transform: none;
+          opacity: 0;
+        }
+        83% {
+          clip-path: polygon(0 55%, 100% 55%, 100% 75%, 0 75%);
+          transform: translate(6px, 2px);
+          opacity: 0.85;
+        }
+        85% {
+          clip-path: polygon(0 10%, 100% 10%, 100% 28%, 0 28%);
+          transform: translate(-4px, -3px);
+          opacity: 0.7;
+        }
+        87% {
+          clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+          opacity: 0;
+        }
+        89% {
+          clip-path: polygon(0 70%, 100% 70%, 100% 88%, 0 88%);
+          transform: translate(3px, -1px);
+          opacity: 0.75;
+        }
+        91% {
+          clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+          opacity: 0;
+        }
+      }
+
       /* ── collection strip ── */
 
       .strip-outer {
@@ -1398,6 +1527,10 @@
             </button>
           </nav>
 
+          <div class="thunder-break">
+            <span class="thunder-word" data-text="UNSEEN">UNSEEN</span>
+          </div>
+
           <div class="details-widget" id="members">
             <div class="detail-tabs" role="tablist" aria-label="NULLs details">
               <button
@@ -1409,9 +1542,8 @@
                 data-title="$NULLS"
                 data-body="Memecoin attention wrapped around a visual identity that can last longer."
               >
-                <span class="detail-icon"><img src="/assets/Nlogo.png" alt=""></span>
                 <span class="detail-kicker">Ticker</span>
-                <strong>$NULLS</strong>
+                <strong><img class="detail-ticker-logo" src="/assets/Nlogo.png" alt="">$NULLS</strong>
                 <span>Coin meets collection</span>
               </button>
               <button
@@ -1423,9 +1555,8 @@
                 data-title="Pump.fun"
                 data-body="Fast attention, low friction, native meme distribution."
               >
-                <span class="detail-icon"><img src="/assets/Nlogo.png" alt=""></span>
                 <span class="detail-kicker">Launchpad</span>
-                <strong>Pump.fun</strong>
+                <strong><img class="detail-ticker-logo" src="/assets/Nlogo.png" alt="">Pump.fun</strong>
                 <span>Direct memecoin launch</span>
               </button>
               <button
@@ -1437,12 +1568,15 @@
                 data-title="Solana"
                 data-body="Fast execution, sharp culture, and a cleaner lane for identity-first drops."
               >
-                <span class="detail-icon"><img src="/assets/Nlogo.png" alt=""></span>
                 <span class="detail-kicker">Chain</span>
-                <strong>Solana</strong>
+                <strong><img class="detail-ticker-logo" src="/assets/Nlogo.png" alt="">Solana</strong>
                 <span>Fast and culture native</span>
               </button>
             </div>
+          </div>
+
+          <div class="thunder-break">
+            <span class="thunder-word" data-text="NO ORIGIN">NO ORIGIN</span>
           </div>
 
           <div class="story-grid" id="manifesto">
@@ -1622,6 +1756,24 @@
         };
 
         frame();
+      })();
+
+      /* ── thunder word cycling ── */
+      (() => {
+        const pools = [
+          ['UNSEEN', 'VOID', 'ZERO', 'NULL', 'DARK', 'GHOST', '4,444', 'STEALTH'],
+          ['NO ORIGIN', 'UNKNOWN', 'NOTHING', 'SILENCE', 'IDENTITY', 'UNSEEN', 'LOCKED IN'],
+        ];
+        document.querySelectorAll('.thunder-word').forEach((el, i) => {
+          const words = pools[i % pools.length];
+          let idx = 0;
+          setInterval(() => {
+            idx = (idx + 1) % words.length;
+            const w = words[idx];
+            el.textContent = w;
+            el.dataset.text = w;
+          }, 3200 + i * 700);
+        });
       })();
 
       /* ── gallery coverflow carousel ── */
