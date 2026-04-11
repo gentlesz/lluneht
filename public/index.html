@@ -1009,14 +1009,14 @@
         background: linear-gradient(270deg, #040404 0%, transparent 100%);
       }
 
-      /* ── carousel navigation arrows ── */
+      /* ── carousel navigation ── */
       .gallery-nav {
-        position: absolute;
-        bottom: 28px;
-        left: 50%;
-        transform: translateX(-50%);
         display: flex;
-        gap: 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        padding: 36px 0 20px;
+        position: relative;
         z-index: 20;
       }
 
@@ -1024,29 +1024,48 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 48px;
-        height: 48px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
+        width: 96px;
+        height: 96px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
         border-radius: 50%;
-        background: rgba(4, 4, 4, 0.6);
-        color: rgba(255, 255, 255, 0.7);
+        background: transparent;
         cursor: pointer;
-        font-size: 1.1rem;
-        transition: border-color 260ms ease, color 260ms ease, background 260ms ease, transform 260ms ease;
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        padding: 0;
+        transition: border-color 300ms ease, transform 300ms cubic-bezier(0.22, 0.68, 0, 1.2), opacity 300ms ease;
         user-select: none;
+        opacity: 0.55;
+      }
+
+      .gallery-arrow img {
+        width: 52px;
+        height: 52px;
+        object-fit: contain;
+        filter: invert(1);
+        transition: transform 300ms cubic-bezier(0.22, 0.68, 0, 1.2);
+        display: block;
+      }
+
+      /* mirror the prev button logo to face left */
+      .gallery-prev img {
+        transform: scaleX(-1);
       }
 
       .gallery-arrow:hover {
-        border-color: rgba(255, 255, 255, 0.55);
-        color: #fff;
-        background: rgba(20, 20, 20, 0.85);
-        transform: scale(1.08);
+        border-color: rgba(255, 255, 255, 0.42);
+        opacity: 1;
+        transform: scale(1.06);
+      }
+
+      .gallery-prev:hover img {
+        transform: scaleX(-1) translateX(-3px);
+      }
+
+      .gallery-next:hover img {
+        transform: translateX(3px);
       }
 
       .gallery-arrow:active {
-        transform: scale(0.95);
+        transform: scale(0.94);
       }
 
       /* ── collection strip ── */
@@ -1336,10 +1355,6 @@
       <section class="content" id="collection">
         <section class="screen-section">
           <div class="gallery-wrap" aria-label="NULLs collection">
-            <nav class="gallery-nav" aria-label="Gallery navigation">
-              <button class="gallery-arrow gallery-prev" aria-label="Previous">&#8592;</button>
-              <button class="gallery-arrow gallery-next" aria-label="Next">&#8594;</button>
-            </nav>
             <div class="gallery-grid">
               <div class="gallery-frame">
                 <img src="/assets/nobg/n4.png" alt="NULL — Stealth" loading="lazy">
@@ -1373,6 +1388,15 @@
               </div>
             </div>
           </div>
+
+          <nav class="gallery-nav" aria-label="Gallery navigation">
+            <button class="gallery-arrow gallery-prev" aria-label="Previous">
+              <img src="/assets/Nlogo.png" alt="">
+            </button>
+            <button class="gallery-arrow gallery-next" aria-label="Next">
+              <img src="/assets/Nlogo.png" alt="">
+            </button>
+          </nav>
 
           <div class="details-widget" id="members">
             <div class="detail-tabs" role="tablist" aria-label="NULLs details">
