@@ -47,6 +47,7 @@
         --drift-y: 0px;
         --landing-progress: 0;
         --screen-progress: 0;
+        --spine-glow: 0;
       }
 
       * {
@@ -1080,121 +1081,57 @@
         transform: scale(0.94);
       }
 
-      /* ── thunder break ── */
+      /* ── spine break — vertical connector between sections ── */
       .thunder-break {
         position: relative;
         display: flex;
-        align-items: center;
+        align-items: stretch;
         justify-content: center;
-        padding: 140px 24px;
+        padding: 0;
+        height: 240px;
         background: #040404;
-        overflow: hidden;
+        overflow: visible;
       }
 
-      .thunder-word {
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(5rem, 18vw, 16rem);
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: -0.06em;
-        line-height: 1;
-        color: #ffffff;
-        -webkit-text-stroke: 1.5px rgba(189, 147, 68, 0.72);
+      .spine-bar {
         position: relative;
-        animation: thunder-idle 0.1s steps(1) infinite;
-        user-select: none;
+        width: clamp(4px, 0.55vw, 8px);
+        border-radius: 999px;
+        background: linear-gradient(
+          180deg,
+          transparent 0%,
+          rgba(36, 30, 14, 0.95) 12%,
+          rgba(20, 16, 7, 0.98) 50%,
+          rgba(36, 30, 14, 0.95) 88%,
+          transparent 100%
+        );
+        /* golden glow driven by --spine-glow scroll variable */
+        box-shadow:
+          0 0 0 1px rgba(189, 147, 68, calc(var(--spine-glow, 0) * 0.55)),
+          0 0 12px  rgba(189, 147, 68, calc(var(--spine-glow, 0) * 0.45)),
+          0 0 36px  rgba(189, 147, 68, calc(var(--spine-glow, 0) * 0.22)),
+          0 0 90px  rgba(189, 147, 68, calc(var(--spine-glow, 0) * 0.10));
+        transition: box-shadow 80ms linear;
       }
 
-      .thunder-word::before,
-      .thunder-word::after {
-        content: attr(data-text);
+      /* radial golden aura that blooms as you scroll */
+      .spine-bar::before {
+        content: "";
         position: absolute;
-        inset: 0;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width:  calc(60px + var(--spine-glow, 0) * 260px);
+        height: calc(60px + var(--spine-glow, 0) * 260px);
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(189, 147, 68, calc(var(--spine-glow, 0) * 0.14)) 0%,
+          rgba(189, 147, 68, calc(var(--spine-glow, 0) * 0.04)) 45%,
+          transparent 70%
+        );
         pointer-events: none;
-      }
-
-      .thunder-word::before {
-        color: rgba(189, 147, 68, 0.65);
-        -webkit-text-stroke: 0;
-        animation: thunder-glitch-a 5s steps(1) infinite;
-        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-      }
-
-      .thunder-word::after {
-        color: rgba(255, 255, 255, 0.55);
-        -webkit-text-stroke: 0;
-        animation: thunder-glitch-b 5s steps(1) infinite;
-        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-      }
-
-      @keyframes thunder-idle {
-        0%, 96%  { opacity: 1; }
-        97%      { opacity: 0.88; }
-        98%      { opacity: 1; }
-        99%      { opacity: 0.92; }
-        100%     { opacity: 1; }
-      }
-
-      @keyframes thunder-glitch-a {
-        0%, 79%, 100% {
-          clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-          transform: none;
-          opacity: 0;
-        }
-        80% {
-          clip-path: polygon(0 18%, 100% 18%, 100% 42%, 0 42%);
-          transform: translate(-5px, -2px);
-          opacity: 1;
-        }
-        82% {
-          clip-path: polygon(0 62%, 100% 62%, 100% 78%, 0 78%);
-          transform: translate(4px, 3px);
-          opacity: 0.9;
-        }
-        84% {
-          clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-          opacity: 0;
-        }
-        88% {
-          clip-path: polygon(0 30%, 100% 30%, 100% 55%, 0 55%);
-          transform: translate(-3px, 1px);
-          opacity: 0.8;
-        }
-        90% {
-          clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-          opacity: 0;
-        }
-      }
-
-      @keyframes thunder-glitch-b {
-        0%, 81%, 100% {
-          clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-          transform: none;
-          opacity: 0;
-        }
-        83% {
-          clip-path: polygon(0 55%, 100% 55%, 100% 75%, 0 75%);
-          transform: translate(6px, 2px);
-          opacity: 0.85;
-        }
-        85% {
-          clip-path: polygon(0 10%, 100% 10%, 100% 28%, 0 28%);
-          transform: translate(-4px, -3px);
-          opacity: 0.7;
-        }
-        87% {
-          clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-          opacity: 0;
-        }
-        89% {
-          clip-path: polygon(0 70%, 100% 70%, 100% 88%, 0 88%);
-          transform: translate(3px, -1px);
-          opacity: 0.75;
-        }
-        91% {
-          clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-          opacity: 0;
-        }
+        transition: width 80ms linear, height 80ms linear;
       }
 
       /* ── collection strip ── */
@@ -1528,7 +1465,7 @@
           </nav>
 
           <div class="thunder-break">
-            <span class="thunder-word" data-text="UNSEEN">UNSEEN</span>
+            <div class="spine-bar"></div>
           </div>
 
           <div class="details-widget" id="members">
@@ -1576,7 +1513,7 @@
           </div>
 
           <div class="thunder-break">
-            <span class="thunder-word" data-text="NO ORIGIN">NO ORIGIN</span>
+            <div class="spine-bar"></div>
           </div>
 
           <div class="story-grid" id="manifesto">
@@ -1758,22 +1695,18 @@
         frame();
       })();
 
-      /* ── thunder word cycling ── */
+      /* ── spine glow — driven by page scroll progress ── */
       (() => {
-        const pools = [
-          ['UNSEEN', 'VOID', 'ZERO', 'NULL', 'DARK', 'GHOST', '4,444', 'STEALTH'],
-          ['NO ORIGIN', 'UNKNOWN', 'NOTHING', 'SILENCE', 'IDENTITY', 'UNSEEN', 'LOCKED IN'],
-        ];
-        document.querySelectorAll('.thunder-word').forEach((el, i) => {
-          const words = pools[i % pools.length];
-          let idx = 0;
-          setInterval(() => {
-            idx = (idx + 1) % words.length;
-            const w = words[idx];
-            el.textContent = w;
-            el.dataset.text = w;
-          }, 3200 + i * 700);
-        });
+        const root = document.documentElement;
+        function updateSpineGlow() {
+          const scrollY = window.scrollY;
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          // glow builds from 0 → 1 as you scroll from landing to footer
+          const glow = maxScroll > 0 ? Math.min(scrollY / maxScroll, 1) : 0;
+          root.style.setProperty('--spine-glow', glow.toFixed(4));
+        }
+        window.addEventListener('scroll', updateSpineGlow, { passive: true });
+        updateSpineGlow();
       })();
 
       /* ── gallery coverflow carousel ── */
