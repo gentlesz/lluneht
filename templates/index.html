@@ -3,19 +3,32 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>NULLs</title>
-    <meta
-      name="description"
-      content="NULLs — no origin. A collection of 4,444 unseen."
-    >
+    <title>NULLs — A Collection of 4,444 Unseen | Solana NFT</title>
+    <meta name="description" content="NULLs — 4,444 unseen. No origin. A Solana NFT collection and $NULLS memecoin on pump.fun. Dark identity. Zero explanation.">
+    <meta name="keywords" content="NULLs, NFT, Solana, $NULLS, memecoin, pump.fun, NFT collection, digital art">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="NULLs">
     <link rel="icon" type="image/png" href="/assets/logo1.png">
-    <meta property="og:title" content="NULLs">
-    <meta property="og:description" content="no origin.">
-    <meta property="og:image" content="/assets/logo1.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NULLs — No Origin. 4,444 Unseen.">
+    <meta property="og:description" content="A Solana NFT collection of 4,444 unseen. No origin. $NULLS memecoin on pump.fun.">
+    <meta property="og:image" content="/assets/n9.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="NULLs">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NULLs">
-    <meta name="twitter:description" content="no origin. A collection of 4,444 unseen.">
-    <meta name="twitter:image" content="/assets/logo1.png">
+    <meta name="twitter:title" content="NULLs — No Origin. 4,444 Unseen.">
+    <meta name="twitter:description" content="A Solana NFT collection of 4,444 unseen. $NULLS on pump.fun.">
+    <meta name="twitter:image" content="/assets/n9.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "NULLs",
+      "description": "A collection of 4,444 unseen Solana NFTs. No origin.",
+      "url": "https://nulls.xyz"
+    }
+    </script>
     <style>
       :root {
         --paper: #f4efe2;
@@ -438,9 +451,7 @@
         position: relative;
         min-height: 100vh;
         padding: 0 0 92px;
-        background:
-          radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.03), transparent 18%),
-          linear-gradient(180deg, #080808 0%, #020202 100%);
+        background: #040404;
         overflow: clip;
       }
 
@@ -449,9 +460,9 @@
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(circle 260px at calc(var(--pointer-x) * 0.75) calc(var(--pointer-y) * 1.08), rgba(214, 182, 116, calc(var(--pointer-intensity) * 0.08)), transparent 74%),
-          radial-gradient(circle 420px at 50% 50%, rgba(255, 255, 255, 0.03), transparent 60%);
+          radial-gradient(circle 260px at calc(var(--pointer-x) * 0.75) calc(var(--pointer-y) * 1.08), rgba(214, 182, 116, calc(var(--pointer-intensity) * 0.06)), transparent 74%);
         pointer-events: none;
+        z-index: 0;
       }
 
       .screen-frame {
@@ -837,7 +848,7 @@
         gap: 18px;
         padding: 18px 28px 28px;
         background: #040404;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-top: none;
         color: rgba(255, 248, 228, 0.56);
         font-size: 0.72rem;
         text-transform: uppercase;
@@ -970,6 +981,72 @@
         box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.55);
         pointer-events: none;
         z-index: 2;
+      }
+
+      /* ── gallery fade edges — blends carousel into surrounding black ── */
+      .gallery-wrap {
+        position: relative;
+      }
+
+      .gallery-wrap::before,
+      .gallery-wrap::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 160px;
+        pointer-events: none;
+        z-index: 10;
+      }
+
+      .gallery-wrap::before {
+        left: 0;
+        background: linear-gradient(90deg, #040404 0%, transparent 100%);
+      }
+
+      .gallery-wrap::after {
+        right: 0;
+        background: linear-gradient(270deg, #040404 0%, transparent 100%);
+      }
+
+      /* ── carousel navigation arrows ── */
+      .gallery-nav {
+        position: absolute;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 16px;
+        z-index: 20;
+      }
+
+      .gallery-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 50%;
+        background: rgba(4, 4, 4, 0.6);
+        color: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: border-color 260ms ease, color 260ms ease, background 260ms ease, transform 260ms ease;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        user-select: none;
+      }
+
+      .gallery-arrow:hover {
+        border-color: rgba(255, 255, 255, 0.55);
+        color: #fff;
+        background: rgba(20, 20, 20, 0.85);
+        transform: scale(1.08);
+      }
+
+      .gallery-arrow:active {
+        transform: scale(0.95);
       }
 
       /* ── collection strip ── */
@@ -1259,6 +1336,10 @@
       <section class="content" id="collection">
         <section class="screen-section">
           <div class="gallery-wrap" aria-label="NULLs collection">
+            <nav class="gallery-nav" aria-label="Gallery navigation">
+              <button class="gallery-arrow gallery-prev" aria-label="Previous">&#8592;</button>
+              <button class="gallery-arrow gallery-next" aria-label="Next">&#8594;</button>
+            </nav>
             <div class="gallery-grid">
               <div class="gallery-frame">
                 <img src="/assets/nobg/n4.png" alt="NULL — Stealth" loading="lazy">
@@ -1558,6 +1639,18 @@
           scrollToMiddle();
           update();
         }));
+
+        /* arrow buttons */
+        function scrollByCard(dir) {
+          const card = frames[0];
+          const step = card.offsetWidth + 24; // card + gap
+          grid.scrollBy({ left: dir * step, behavior: 'smooth' });
+        }
+
+        const prevBtn = document.querySelector('.gallery-prev');
+        const nextBtn = document.querySelector('.gallery-next');
+        if (prevBtn) prevBtn.addEventListener('click', () => scrollByCard(-1));
+        if (nextBtn) nextBtn.addEventListener('click', () => scrollByCard(1));
 
         /* drag to scroll */
         let down = false, sx, sl;
