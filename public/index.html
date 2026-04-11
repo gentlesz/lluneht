@@ -844,6 +844,90 @@
         opacity: calc(0.2 + var(--screen-progress) * 0.8);
       }
 
+      /* ── collection strip ── */
+
+      .strip-outer {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        padding: 56px 0 48px;
+        -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+        mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+      }
+
+      .strip-track {
+        display: flex;
+        gap: 14px;
+        width: max-content;
+        animation: strip-scroll 72s linear infinite;
+        will-change: transform;
+      }
+
+      .strip-track:hover {
+        animation-play-state: paused;
+      }
+
+      .strip-item {
+        position: relative;
+        width: 268px;
+        height: 348px;
+        border-radius: 18px;
+        overflow: hidden;
+        flex-shrink: 0;
+        background: #060606;
+        cursor: pointer;
+      }
+
+      .strip-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        transition: transform 700ms cubic-bezier(0.22, 0.68, 0, 1.2);
+        display: block;
+      }
+
+      .strip-item:hover img {
+        transform: scale(1.07) translateY(-2%);
+      }
+
+      .strip-label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 52px 16px 20px;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.86));
+        transform: translateY(100%);
+        transition: transform 300ms ease;
+      }
+
+      .strip-item:hover .strip-label {
+        transform: translateY(0);
+      }
+
+      .strip-label-name {
+        display: block;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.13em;
+        color: rgba(255, 248, 228, 0.88);
+      }
+
+      .strip-label-trait {
+        display: block;
+        margin-top: 5px;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: rgba(255, 248, 228, 0.44);
+      }
+
+      @keyframes strip-scroll {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+
       @media (max-width: 980px) {
         .detail-tabs {
           grid-template-columns: 1fr;
@@ -926,6 +1010,12 @@
 
         .detail-tab {
           min-height: 96px;
+        }
+
+        .strip-item {
+          width: 200px;
+          height: 260px;
+          border-radius: 12px;
         }
 
         .detail-tab strong {
@@ -1028,62 +1118,178 @@
 
       <section class="content" id="collection">
         <section class="screen-section">
-          <div class="screen-frame">
-            <div class="screen-glass">
-              <div class="screen-stage">
-                <figure class="screen-slide" style="--delay: 0s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n3.png" alt="NULLs sample one" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 4s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n4.png" alt="NULLs sample two" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 8s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n5.png" alt="NULLs sample three" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 12s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n6.png" alt="NULLs sample four" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 16s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n7.png" alt="NULLs sample five" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 20s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n8.png" alt="NULLs sample six" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 24s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n9.png" alt="NULLs sample seven" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 28s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n10.png" alt="NULLs sample eight" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 32s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n11.png" alt="NULLs sample nine" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 36s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n21.png" alt="NULLs sample ten" loading="lazy">
-                  </div>
-                </figure>
+          <div class="strip-outer" aria-label="NULLs collection preview">
+            <div class="strip-track">
+              <!-- set 1 -->
+              <div class="strip-item">
+                <img src="/assets/nobg/n1.png" alt="NULL — Cosmic" loading="lazy">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Cosmic</span>
+                </div>
               </div>
-              <div class="screen-overlay"></div>
-              <div class="screen-noise"></div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n7.png" alt="NULL — LED Crown" loading="lazy">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">LED Crown</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n9.png" alt="NULL — Gold Drip" loading="lazy">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Gold Drip</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n3.png" alt="NULL — Weeping" loading="lazy">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Weeping</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n10.png" alt="NULL — Chromatic" loading="lazy">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Chromatic</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n4.png" alt="NULL — Stealth" loading="lazy">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Stealth</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n2.png" alt="NULL — Gridded" loading="lazy">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Gridded</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n8.png" alt="NULL — Locked In" loading="lazy">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Locked In</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n6.png" alt="NULL — Pixel Bloom" loading="lazy">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Pixel Bloom</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n5.png" alt="NULL — Void Eye" loading="lazy">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Void Eye</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n21.png" alt="NULL — Checker" loading="lazy">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Checker</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n11.png" alt="NULL — Chromatic II" loading="lazy">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Chromatic II</span>
+                </div>
+              </div>
+              <!-- set 2 — seamless loop duplicate -->
+              <div class="strip-item">
+                <img src="/assets/nobg/n1.png" alt="" loading="lazy" aria-hidden="true">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Cosmic</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n7.png" alt="" loading="lazy" aria-hidden="true">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">LED Crown</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n9.png" alt="" loading="lazy" aria-hidden="true">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Gold Drip</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n3.png" alt="" loading="lazy" aria-hidden="true">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Weeping</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n10.png" alt="" loading="lazy" aria-hidden="true">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Chromatic</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n4.png" alt="" loading="lazy" aria-hidden="true">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Stealth</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n2.png" alt="" loading="lazy" aria-hidden="true">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Gridded</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n8.png" alt="" loading="lazy" aria-hidden="true">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Locked In</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n6.png" alt="" loading="lazy" aria-hidden="true">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Pixel Bloom</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n5.png" alt="" loading="lazy" aria-hidden="true">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Void Eye</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n21.png" alt="" loading="lazy" aria-hidden="true">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Checker</span>
+                </div>
+              </div>
+              <div class="strip-item">
+                <img src="/assets/nobg/n11.png" alt="" loading="lazy" aria-hidden="true">
+                <div class="strip-label">
+                  <span class="strip-label-name">NULL</span>
+                  <span class="strip-label-trait">Chromatic II</span>
+                </div>
+              </div>
             </div>
           </div>
 
