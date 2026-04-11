@@ -51,11 +51,22 @@
         color: var(--ink);
         cursor: crosshair;
         font-family: "Helvetica Neue", "Arial Nova", Arial, sans-serif;
+        transition: background 320ms ease;
         background:
           radial-gradient(circle at 50% 6%, rgba(255, 255, 255, 0.86), transparent 20%),
           radial-gradient(circle at 18% 86%, rgba(229, 220, 197, 0.42), transparent 22%),
           radial-gradient(circle at 84% 78%, rgba(227, 216, 193, 0.38), transparent 22%),
           linear-gradient(180deg, var(--paper) 0%, #f1eadc 100%);
+      }
+
+      body.block-hover {
+        background: #040404;
+      }
+
+      body.block-hover::before,
+      body.block-hover::after {
+        opacity: 0;
+        transition: opacity 320ms ease;
       }
 
       body::before,
@@ -627,6 +638,16 @@
         font-size: clamp(9rem, 22vw, 18rem);
         line-height: 0.86;
         letter-spacing: -0.07em;
+        transition: text-shadow 280ms ease, color 280ms ease;
+      }
+
+      .detail-tab:hover strong,
+      .detail-tab:focus-visible strong,
+      .detail-tab.active strong {
+        text-shadow:
+          0 0 8px rgba(255, 248, 228, 0.88),
+          0 0 28px rgba(255, 248, 228, 0.48),
+          0 0 60px rgba(255, 248, 228, 0.22);
       }
 
       .detail-tab span:last-child {
@@ -689,6 +710,16 @@
         font-size: clamp(10rem, 24vw, 20rem);
         line-height: 0.84;
         letter-spacing: -0.08em;
+        transition: text-shadow 280ms ease, color 280ms ease;
+      }
+
+      .story-card:hover h3,
+      .story-card:focus-within h3 {
+        color: rgba(255, 248, 228, 1);
+        text-shadow:
+          0 0 8px rgba(255, 248, 228, 0.88),
+          0 0 28px rgba(255, 248, 228, 0.48),
+          0 0 60px rgba(255, 248, 228, 0.22);
       }
 
       .story-card p {
