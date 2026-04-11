@@ -12,6 +12,10 @@
     <meta property="og:title" content="NULLs">
     <meta property="og:description" content="no origin.">
     <meta property="og:image" content="/assets/logo1.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NULLs">
+    <meta name="twitter:description" content="no origin. A collection of 4,444 unseen.">
+    <meta name="twitter:image" content="/assets/logo1.png">
     <style>
       :root {
         --paper: #f4efe2;
@@ -790,6 +794,56 @@
         flex-wrap: wrap;
       }
 
+      .cta-btn {
+        display: inline-block;
+        padding: 14px 38px;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--ink);
+        border: 1px solid rgba(43, 43, 41, 0.3);
+        border-radius: 2px;
+        background: transparent;
+        cursor: pointer;
+        transition: background 240ms ease, color 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+        text-decoration: none;
+      }
+
+      .cta-btn:hover {
+        background: var(--ink);
+        color: var(--paper);
+        border-color: var(--ink);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+      }
+
+      .cta-btn--light {
+        color: rgba(255, 248, 228, 0.82);
+        border-color: rgba(255, 248, 228, 0.22);
+      }
+
+      .cta-btn--light:hover {
+        background: rgba(255, 248, 228, 0.92);
+        color: #040404;
+        border-color: rgba(255, 248, 228, 0.92);
+      }
+
+      .hero-cta {
+        position: absolute;
+        left: 50%;
+        bottom: 13%;
+        transform: translateX(-50%);
+        z-index: 4;
+        opacity: calc(1 - var(--landing-progress) * 1.3);
+      }
+
+      .section-cta {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        margin: 14vh auto 8vh;
+        opacity: calc(0.2 + var(--screen-progress) * 0.8);
+      }
+
       @media (max-width: 980px) {
         .detail-tabs {
           grid-template-columns: 1fr;
@@ -874,6 +928,14 @@
           min-height: 96px;
         }
 
+        .detail-tab strong {
+          font-size: clamp(4rem, 16vw, 9rem);
+        }
+
+        .story-card h3 {
+          font-size: clamp(5rem, 18vw, 10rem);
+        }
+
         .site-footer {
           padding: 18px 16px 24px;
           align-items: flex-start;
@@ -914,7 +976,6 @@
         <header class="topbar">
           <nav class="nav-left">
             <a href="#collection">Collection</a>
-            <a href="#activations">Activations</a>
             <a href="#manifesto">Manifesto</a>
             <a href="#members">Members</a>
           </nav>
@@ -939,6 +1000,9 @@
             <span>A collection of 4,444 unseen.</span>
             <span>no origin.</span>
           </div>
+          <div class="hero-cta">
+            <a href="#members" class="cta-btn">Become Unseen</a>
+          </div>
           <div class="scroll-prompt" aria-hidden="true">
             <span>Scroll</span>
             <div class="scroll-track">
@@ -952,7 +1016,7 @@
             <span>&copy; NULLs 2026</span>
             <a href="#collection">OG NULLs Site</a>
             <a href="#manifesto">No Origin</a>
-            <a href="#activations">Activations</a>
+            <!-- TODO: replace # with your project's X handle -->
             <a href="https://x.com" target="_blank" rel="noreferrer">X</a>
           </div>
           <div class="bottom-right">
@@ -969,52 +1033,52 @@
               <div class="screen-stage">
                 <figure class="screen-slide" style="--delay: 0s;">
                   <div class="screen-portrait">
-                    <img src="/assets/n3.png" alt="NULLs sample one">
+                    <img src="/assets/n3.png" alt="NULLs sample one" loading="lazy">
                   </div>
                 </figure>
                 <figure class="screen-slide" style="--delay: 4s;">
                   <div class="screen-portrait">
-                    <img src="/assets/n4.png" alt="NULLs sample two">
+                    <img src="/assets/n4.png" alt="NULLs sample two" loading="lazy">
                   </div>
                 </figure>
                 <figure class="screen-slide" style="--delay: 8s;">
                   <div class="screen-portrait">
-                    <img src="/assets/n5.png" alt="NULLs sample three">
+                    <img src="/assets/n5.png" alt="NULLs sample three" loading="lazy">
                   </div>
                 </figure>
                 <figure class="screen-slide" style="--delay: 12s;">
                   <div class="screen-portrait">
-                    <img src="/assets/n6.png" alt="NULLs sample four">
+                    <img src="/assets/n6.png" alt="NULLs sample four" loading="lazy">
                   </div>
                 </figure>
                 <figure class="screen-slide" style="--delay: 16s;">
                   <div class="screen-portrait">
-                    <img src="/assets/n7.png" alt="NULLs sample five">
+                    <img src="/assets/n7.png" alt="NULLs sample five" loading="lazy">
                   </div>
                 </figure>
                 <figure class="screen-slide" style="--delay: 20s;">
                   <div class="screen-portrait">
-                    <img src="/assets/n8.png" alt="NULLs sample six">
+                    <img src="/assets/n8.png" alt="NULLs sample six" loading="lazy">
                   </div>
                 </figure>
                 <figure class="screen-slide" style="--delay: 24s;">
                   <div class="screen-portrait">
-                    <img src="/assets/n9.png" alt="NULLs sample seven">
+                    <img src="/assets/n9.png" alt="NULLs sample seven" loading="lazy">
                   </div>
                 </figure>
                 <figure class="screen-slide" style="--delay: 28s;">
                   <div class="screen-portrait">
-                    <img src="/assets/n10.png" alt="NULLs sample eight">
+                    <img src="/assets/n10.png" alt="NULLs sample eight" loading="lazy">
                   </div>
                 </figure>
                 <figure class="screen-slide" style="--delay: 32s;">
                   <div class="screen-portrait">
-                    <img src="/assets/n11.png" alt="NULLs sample nine">
+                    <img src="/assets/n11.png" alt="NULLs sample nine" loading="lazy">
                   </div>
                 </figure>
                 <figure class="screen-slide" style="--delay: 36s;">
                   <div class="screen-portrait">
-                    <img src="/assets/n21.png" alt="NULLs sample ten">
+                    <img src="/assets/n21.png" alt="NULLs sample ten" loading="lazy">
                   </div>
                 </figure>
               </div>
@@ -1070,7 +1134,7 @@
             </div>
           </div>
 
-          <div class="story-grid">
+          <div class="story-grid" id="manifesto">
             <article class="story-card">
               <span class="story-icon"><img src="/assets/logo1.png" alt=""></span>
               <span class="story-card-label">The Concept</span>
@@ -1092,12 +1156,17 @@
             <article class="story-card">
               <span class="story-icon"><img src="/assets/logo1.png" alt=""></span>
               <span class="story-card-label">The Vision</span>
-              <h3>Vision.</h3>
+              <h3>Owned.</h3>
               <p>
                 NULLs is a statement. Holder-governed. CC0 licensed. Built on Solana for
                 permanence. Your NULL is yours fully, completely, unconditionally.
               </p>
             </article>
+          </div>
+
+          <div class="section-cta">
+            <!-- TODO: replace # with pump.fun token link -->
+            <a href="#" class="cta-btn cta-btn--light">Buy $NULLS on Pump.fun</a>
           </div>
         </section>
 
@@ -1110,6 +1179,7 @@
           <div class="site-footer-right">
             <a href="#collection">Collection</a>
             <a href="#manifesto">No Origin</a>
+            <!-- TODO: replace with your project's X handle -->
             <a href="https://x.com" target="_blank" rel="noreferrer">X</a>
           </div>
         </footer>
