@@ -47,7 +47,7 @@
         --drift-y: 0px;
         --landing-progress: 0;
         --screen-progress: 0;
-        --spine-glow: 0;
+
       }
 
       * {
@@ -633,19 +633,6 @@
       }
 
       /* logo prefix in front of the ticker value */
-      .detail-ticker-logo {
-        display: inline-block;
-        width: 36px;
-        height: 36px;
-        object-fit: contain;
-        filter: invert(1);
-        opacity: 0.7;
-        vertical-align: middle;
-        margin-right: 10px;
-        position: relative;
-        top: -0.06em;
-      }
-
       .story-icon {
         width: 54px;
         height: 54px;
@@ -1023,116 +1010,6 @@
       }
 
       /* ── carousel navigation ── */
-      .gallery-nav {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 40px;
-        padding: 36px 0 20px;
-        position: relative;
-        z-index: 20;
-      }
-
-      .gallery-arrow {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 96px;
-        height: 96px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 50%;
-        background: transparent;
-        cursor: pointer;
-        padding: 0;
-        transition: border-color 300ms ease, transform 300ms cubic-bezier(0.22, 0.68, 0, 1.2), opacity 300ms ease;
-        user-select: none;
-        opacity: 0.55;
-      }
-
-      .gallery-arrow img {
-        width: 52px;
-        height: 52px;
-        object-fit: contain;
-        filter: invert(1);
-        transition: transform 300ms cubic-bezier(0.22, 0.68, 0, 1.2);
-        display: block;
-      }
-
-      /* mirror the prev button logo to face left */
-      .gallery-prev img {
-        transform: scaleX(-1);
-      }
-
-      .gallery-arrow:hover {
-        border-color: rgba(255, 255, 255, 0.42);
-        opacity: 1;
-        transform: scale(1.06);
-      }
-
-      .gallery-prev:hover img {
-        transform: scaleX(-1) translateX(-3px);
-      }
-
-      .gallery-next:hover img {
-        transform: translateX(3px);
-      }
-
-      .gallery-arrow:active {
-        transform: scale(0.94);
-      }
-
-      /* ── spine break — vertical connector between sections ── */
-      .thunder-break {
-        position: relative;
-        display: flex;
-        align-items: stretch;
-        justify-content: center;
-        padding: 0;
-        height: 240px;
-        background: #040404;
-        overflow: visible;
-      }
-
-      .spine-bar {
-        position: relative;
-        width: clamp(4px, 0.55vw, 8px);
-        border-radius: 999px;
-        background: linear-gradient(
-          180deg,
-          transparent 0%,
-          rgba(36, 30, 14, 0.95) 12%,
-          rgba(20, 16, 7, 0.98) 50%,
-          rgba(36, 30, 14, 0.95) 88%,
-          transparent 100%
-        );
-        /* golden glow driven by --spine-glow scroll variable */
-        box-shadow:
-          0 0 0 1px rgba(189, 147, 68, calc(var(--spine-glow, 0) * 0.55)),
-          0 0 12px  rgba(189, 147, 68, calc(var(--spine-glow, 0) * 0.45)),
-          0 0 36px  rgba(189, 147, 68, calc(var(--spine-glow, 0) * 0.22)),
-          0 0 90px  rgba(189, 147, 68, calc(var(--spine-glow, 0) * 0.10));
-        transition: box-shadow 80ms linear;
-      }
-
-      /* radial golden aura that blooms as you scroll */
-      .spine-bar::before {
-        content: "";
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width:  calc(60px + var(--spine-glow, 0) * 260px);
-        height: calc(60px + var(--spine-glow, 0) * 260px);
-        border-radius: 50%;
-        background: radial-gradient(
-          circle,
-          rgba(189, 147, 68, calc(var(--spine-glow, 0) * 0.14)) 0%,
-          rgba(189, 147, 68, calc(var(--spine-glow, 0) * 0.04)) 45%,
-          transparent 70%
-        );
-        pointer-events: none;
-        transition: width 80ms linear, height 80ms linear;
-      }
 
       /* ── collection strip ── */
 
@@ -1455,19 +1332,6 @@
             </div>
           </div>
 
-          <nav class="gallery-nav" aria-label="Gallery navigation">
-            <button class="gallery-arrow gallery-prev" aria-label="Previous">
-              <img src="/assets/Nlogo.png" alt="">
-            </button>
-            <button class="gallery-arrow gallery-next" aria-label="Next">
-              <img src="/assets/Nlogo.png" alt="">
-            </button>
-          </nav>
-
-          <div class="thunder-break">
-            <div class="spine-bar"></div>
-          </div>
-
           <div class="details-widget" id="members">
             <div class="detail-tabs" role="tablist" aria-label="NULLs details">
               <button
@@ -1480,7 +1344,7 @@
                 data-body="Memecoin attention wrapped around a visual identity that can last longer."
               >
                 <span class="detail-kicker">Ticker</span>
-                <strong><img class="detail-ticker-logo" src="/assets/Nlogo.png" alt="">$NULLS</strong>
+                <strong>$NULLS</strong>
                 <span>Coin meets collection</span>
               </button>
               <button
@@ -1493,7 +1357,7 @@
                 data-body="Fast attention, low friction, native meme distribution."
               >
                 <span class="detail-kicker">Launchpad</span>
-                <strong><img class="detail-ticker-logo" src="/assets/Nlogo.png" alt="">Pump.fun</strong>
+                <strong>Pump.fun</strong>
                 <span>Direct memecoin launch</span>
               </button>
               <button
@@ -1506,14 +1370,10 @@
                 data-body="Fast execution, sharp culture, and a cleaner lane for identity-first drops."
               >
                 <span class="detail-kicker">Chain</span>
-                <strong><img class="detail-ticker-logo" src="/assets/Nlogo.png" alt="">Solana</strong>
+                <strong>Solana</strong>
                 <span>Fast and culture native</span>
               </button>
             </div>
-          </div>
-
-          <div class="thunder-break">
-            <div class="spine-bar"></div>
           </div>
 
           <div class="story-grid" id="manifesto">
@@ -1695,20 +1555,6 @@
         frame();
       })();
 
-      /* ── spine glow — driven by page scroll progress ── */
-      (() => {
-        const root = document.documentElement;
-        function updateSpineGlow() {
-          const scrollY = window.scrollY;
-          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-          // glow builds from 0 → 1 as you scroll from landing to footer
-          const glow = maxScroll > 0 ? Math.min(scrollY / maxScroll, 1) : 0;
-          root.style.setProperty('--spine-glow', glow.toFixed(4));
-        }
-        window.addEventListener('scroll', updateSpineGlow, { passive: true });
-        updateSpineGlow();
-      })();
-
       /* ── gallery coverflow carousel ── */
       (() => {
         const grid = document.querySelector('.gallery-grid');
@@ -1748,18 +1594,6 @@
           scrollToMiddle();
           update();
         }));
-
-        /* arrow buttons */
-        function scrollByCard(dir) {
-          const card = frames[0];
-          const step = card.offsetWidth + 24; // card + gap
-          grid.scrollBy({ left: dir * step, behavior: 'smooth' });
-        }
-
-        const prevBtn = document.querySelector('.gallery-prev');
-        const nextBtn = document.querySelector('.gallery-next');
-        if (prevBtn) prevBtn.addEventListener('click', () => scrollByCard(-1));
-        if (nextBtn) nextBtn.addEventListener('click', () => scrollByCard(1));
 
         /* drag to scroll */
         let down = false, sx, sl;
