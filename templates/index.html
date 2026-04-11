@@ -101,9 +101,9 @@
       }
 
       .page-dim {
-        position: fixed;
+        position: absolute;
         inset: 0;
-        z-index: 4;
+        z-index: 1;
         pointer-events: none;
         background:
           radial-gradient(circle 28vw at 50% 42%, rgba(255, 255, 255, 0.03), transparent 36%),
@@ -1066,10 +1066,10 @@
     <div class="pointer-field" aria-hidden="true">
       <div class="pointer-core"></div>
     </div>
-    <div class="page-dim" aria-hidden="true"></div>
 
     <div class="page-shell">
       <section class="landing">
+        <div class="page-dim" aria-hidden="true"></div>
         <header class="topbar">
           <nav class="nav-left">
             <a href="#collection">Collection</a>
