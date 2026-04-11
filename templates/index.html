@@ -3,19 +3,32 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>NULLs</title>
-    <meta
-      name="description"
-      content="NULLs — no origin. A collection of 4,444 unseen."
-    >
+    <title>NULLs — A Collection of 4,444 Unseen | Solana NFT</title>
+    <meta name="description" content="NULLs — 4,444 unseen. No origin. A Solana NFT collection and $NULLS memecoin on pump.fun. Dark identity. Zero explanation.">
+    <meta name="keywords" content="NULLs, NFT, Solana, $NULLS, memecoin, pump.fun, NFT collection, digital art">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="NULLs">
     <link rel="icon" type="image/png" href="/assets/logo1.png">
-    <meta property="og:title" content="NULLs">
-    <meta property="og:description" content="no origin.">
-    <meta property="og:image" content="/assets/logo1.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NULLs — No Origin. 4,444 Unseen.">
+    <meta property="og:description" content="A Solana NFT collection of 4,444 unseen. No origin. $NULLS memecoin on pump.fun.">
+    <meta property="og:image" content="/assets/n9.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="NULLs">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NULLs">
-    <meta name="twitter:description" content="no origin. A collection of 4,444 unseen.">
-    <meta name="twitter:image" content="/assets/logo1.png">
+    <meta name="twitter:title" content="NULLs — No Origin. 4,444 Unseen.">
+    <meta name="twitter:description" content="A Solana NFT collection of 4,444 unseen. $NULLS on pump.fun.">
+    <meta name="twitter:image" content="/assets/n9.png">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "NULLs",
+      "description": "A collection of 4,444 unseen Solana NFTs. No origin.",
+      "url": "https://nulls.xyz"
+    }
+    </script>
     <style>
       :root {
         --paper: #f4efe2;
@@ -34,6 +47,7 @@
         --drift-y: 0px;
         --landing-progress: 0;
         --screen-progress: 0;
+
       }
 
       * {
@@ -51,11 +65,29 @@
         color: var(--ink);
         cursor: crosshair;
         font-family: "Helvetica Neue", "Arial Nova", Arial, sans-serif;
+        transition: background 320ms ease;
+        background: #040404;
+      }
+
+      body.block-hover {
         background:
           radial-gradient(circle at 50% 6%, rgba(255, 255, 255, 0.86), transparent 20%),
           radial-gradient(circle at 18% 86%, rgba(229, 220, 197, 0.42), transparent 22%),
           radial-gradient(circle at 84% 78%, rgba(227, 216, 193, 0.38), transparent 22%),
           linear-gradient(180deg, var(--paper) 0%, #f1eadc 100%);
+      }
+
+      body.block-hover::before,
+      body.block-hover::after {
+        transition: opacity 320ms ease;
+      }
+
+      body.block-hover::before {
+        opacity: 0.7;
+      }
+
+      body.block-hover::after {
+        opacity: 0.32;
       }
 
       body::before,
@@ -64,10 +96,11 @@
         position: fixed;
         inset: 0;
         pointer-events: none;
+        opacity: 0;
+        transition: opacity 320ms ease;
       }
 
       body::before {
-        opacity: 0.7;
         background:
           radial-gradient(circle 240px at var(--pointer-x) var(--pointer-y), rgba(255, 255, 255, calc(0.12 + var(--pointer-intensity) * 0.1)), transparent 58%),
           radial-gradient(circle 430px at var(--pointer-x) var(--pointer-y), rgba(16, 16, 15, calc(var(--pointer-intensity) * 0.065)), transparent 64%),
@@ -80,7 +113,6 @@
       }
 
       body::after {
-        opacity: 0.32;
         background:
           radial-gradient(circle 110px at var(--pointer-x) var(--pointer-y), rgba(204, 171, 102, calc(var(--pointer-intensity) * 0.22)), transparent 65%),
           linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
@@ -101,14 +133,14 @@
       }
 
       .page-dim {
-        position: fixed;
+        position: absolute;
         inset: 0;
-        z-index: 4;
+        z-index: 1;
         pointer-events: none;
         background:
           radial-gradient(circle 28vw at 50% 42%, rgba(255, 255, 255, 0.03), transparent 36%),
           rgba(0, 0, 0, 0.78);
-        opacity: 0;
+        opacity: 1;
         transition: opacity 320ms ease;
       }
 
@@ -238,7 +270,7 @@
         font-size: 0.78rem;
         text-transform: uppercase;
         letter-spacing: 0.08em;
-        color: rgba(43, 43, 41, 0.62);
+        color: rgba(255, 255, 255, 0.74);
       }
 
       .topbar {
@@ -262,18 +294,18 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: 18px;
-        width: 54px;
-        height: 54px;
+        top: 10px;
+        width: 80px;
+        height: 80px;
         display: grid;
         place-items: center;
       }
 
       .nav-center img {
-        width: 34px;
-        height: 34px;
+        width: 62px;
+        height: 62px;
         object-fit: contain;
-        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.06));
+        filter: invert(1) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.18));
         animation: hover-mark 5.6s ease-in-out infinite;
       }
 
@@ -316,13 +348,16 @@
         position: relative;
         line-height: 0.8;
         text-transform: uppercase;
-        color: #2f2f2d;
+        color: #ffffff;
+        -webkit-text-stroke: 0 transparent;
+        -webkit-text-fill-color: #ffffff;
+        opacity: 1;
         filter: url(#null-distort);
         transition: color 280ms ease, text-shadow 280ms ease, filter 280ms ease;
         text-shadow:
-          0 1px 0 rgba(255, 255, 255, 0.22),
-          calc(var(--drift-x) * 0.01) calc(var(--drift-y) * 0.01) 0 rgba(0, 0, 0, 0.08),
-          calc(var(--drift-x) * 0.015) calc(var(--drift-y) * 0.015) 0 rgba(186, 145, 66, calc(var(--pointer-intensity) * 0.1));
+          0 0 8px rgba(255, 255, 255, 0.92),
+          0 0 24px rgba(255, 255, 255, 0.56),
+          0 0 54px rgba(255, 255, 255, 0.26);
       }
 
       .wordmark-text {
@@ -343,12 +378,11 @@
         border-radius: 0.18rem;
         pointer-events: auto;
         background:
-          linear-gradient(180deg, rgba(56, 56, 52, 0.96), rgba(25, 25, 23, 0.98)),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
+          linear-gradient(180deg, rgba(36, 36, 34, 0.98), rgba(11, 11, 11, 0.98)),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0));
         box-shadow:
-          0 1px 0 rgba(255, 255, 255, 0.18),
-          0 0 0 1px rgba(0, 0, 0, 0.06),
-          0 0 24px rgba(189, 147, 68, calc(var(--pointer-intensity) * 0.12));
+          0 0 0 1px rgba(255, 255, 255, 0.06),
+          0 0 28px rgba(255, 255, 255, 0.1);
         transform: translateY(-50%);
         transition: background 280ms ease, box-shadow 280ms ease, opacity 280ms ease;
       }
@@ -356,14 +390,14 @@
       .hero-caption {
         position: absolute;
         left: 50%;
-        bottom: 21.5%;
+        bottom: 30%;
         transform: translateX(-50%);
         z-index: 2;
         max-width: 380px;
         text-align: center;
         font-size: 0.8rem;
         line-height: 1.6;
-        color: rgba(43, 43, 41, 0.48);
+        color: rgba(255, 255, 255, 0.55);
         text-transform: uppercase;
         letter-spacing: 0.08em;
         display: grid;
@@ -417,10 +451,8 @@
       .screen-section {
         position: relative;
         min-height: 100vh;
-        padding: 84px 28px 92px;
-        background:
-          radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.03), transparent 18%),
-          linear-gradient(180deg, #080808 0%, #020202 100%);
+        padding: 0 0 92px;
+        background: #040404;
         overflow: clip;
       }
 
@@ -429,9 +461,9 @@
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(circle 260px at calc(var(--pointer-x) * 0.75) calc(var(--pointer-y) * 1.08), rgba(214, 182, 116, calc(var(--pointer-intensity) * 0.08)), transparent 74%),
-          radial-gradient(circle 420px at 50% 50%, rgba(255, 255, 255, 0.03), transparent 60%);
+          radial-gradient(circle 260px at calc(var(--pointer-x) * 0.75) calc(var(--pointer-y) * 1.08), rgba(214, 182, 116, calc(var(--pointer-intensity) * 0.06)), transparent 74%);
         pointer-events: none;
+        z-index: 0;
       }
 
       .screen-frame {
@@ -600,33 +632,23 @@
         color: rgba(255, 248, 228, 0.44);
       }
 
-      .detail-icon,
-      .story-icon {
-        width: 54px;
-        height: 54px;
-        margin: 0 auto 18px;
-        border-radius: 16px;
-        display: grid;
-        place-items: center;
-        background: rgba(255, 248, 228, 0.06);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      }
-
-      .detail-icon img,
-      .story-icon img {
-        width: 26px;
-        height: 26px;
-        object-fit: contain;
-        filter: invert(1);
-        opacity: 0.92;
-      }
-
+      /* logo prefix in front of the ticker value */
       .detail-tab strong {
         display: block;
         margin-bottom: 16px;
         font-size: clamp(9rem, 22vw, 18rem);
         line-height: 0.86;
         letter-spacing: -0.07em;
+        transition: text-shadow 280ms ease, color 280ms ease;
+      }
+
+      .detail-tab:hover strong,
+      .detail-tab:focus-visible strong,
+      .detail-tab.active strong {
+        text-shadow:
+          0 0 8px rgba(255, 248, 228, 0.88),
+          0 0 28px rgba(255, 248, 228, 0.48),
+          0 0 60px rgba(255, 248, 228, 0.22);
       }
 
       .detail-tab span:last-child {
@@ -689,6 +711,16 @@
         font-size: clamp(10rem, 24vw, 20rem);
         line-height: 0.84;
         letter-spacing: -0.08em;
+        transition: text-shadow 280ms ease, color 280ms ease;
+      }
+
+      .story-card:hover h3,
+      .story-card:focus-within h3 {
+        color: rgba(255, 248, 228, 1);
+        text-shadow:
+          0 0 8px rgba(255, 248, 228, 0.88),
+          0 0 28px rgba(255, 248, 228, 0.48),
+          0 0 60px rgba(255, 248, 228, 0.22);
       }
 
       .story-card p {
@@ -699,45 +731,63 @@
         color: rgba(255, 248, 228, 0.58);
       }
 
-      body.block-hover .page-dim {
-        opacity: 1;
+      body.block-hover .page-dim,
+      .hero-word:hover ~ * .page-dim {
+        opacity: 0;
       }
 
       body.block-hover .wordmark {
-        color: #ffffff;
-        -webkit-text-stroke: 0 transparent;
-        -webkit-text-fill-color: #ffffff;
-        opacity: 1;
+        color: #2f2f2d;
+        -webkit-text-stroke: unset;
+        -webkit-text-fill-color: #2f2f2d;
         text-shadow:
-          0 0 8px rgba(255, 255, 255, 0.92),
-          0 0 24px rgba(255, 255, 255, 0.56),
-          0 0 54px rgba(255, 255, 255, 0.26);
+          0 1px 0 rgba(255, 255, 255, 0.22),
+          calc(var(--drift-x) * 0.01) calc(var(--drift-y) * 0.01) 0 rgba(0, 0, 0, 0.08);
         filter: url(#null-distort);
       }
 
       body.block-hover .wordmark-text {
-        color: #ffffff;
-        -webkit-text-fill-color: #ffffff;
+        color: #2f2f2d;
+        -webkit-text-fill-color: #2f2f2d;
+      }
+
+      .hero-word {
         opacity: 1;
       }
 
-      body.block-hover .hero-word {
+      body.block-hover .hero-word:hover {
         opacity: 1;
+      }
+
+      body.block-hover .hero-cta .cta-btn {
+        color: var(--ink);
+        border-color: rgba(43, 43, 41, 0.3);
+      }
+
+      body.block-hover .hero-cta .cta-btn:hover {
+        background: var(--ink);
+        color: var(--paper);
+        border-color: var(--ink);
+      }
+
+      body.block-hover .nav-center img {
+        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.18));
       }
 
       body.block-hover .wordmark-block {
         background:
-          linear-gradient(180deg, rgba(36, 36, 34, 0.98), rgba(11, 11, 11, 0.98)),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0));
+          linear-gradient(180deg, rgba(56, 56, 52, 0.96), rgba(25, 25, 23, 0.98)),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
         box-shadow:
-          0 0 0 1px rgba(255, 255, 255, 0.06),
-          0 0 28px rgba(255, 255, 255, 0.1);
+          0 1px 0 rgba(255, 255, 255, 0.18),
+          0 0 0 1px rgba(0, 0, 0, 0.06),
+          0 0 24px rgba(189, 147, 68, calc(var(--pointer-intensity) * 0.12));
       }
 
       body.block-hover .topbar,
       body.block-hover .bottombar,
       body.block-hover .hero-caption {
-        color: rgba(255, 255, 255, 0.74);
+        color: rgba(43, 43, 41, 0.62);
       }
 
       @keyframes fade-cycle {
@@ -779,7 +829,7 @@
         gap: 18px;
         padding: 18px 28px 28px;
         background: #040404;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-top: none;
         color: rgba(255, 248, 228, 0.56);
         font-size: 0.72rem;
         text-transform: uppercase;
@@ -800,8 +850,8 @@
         font-size: 0.78rem;
         text-transform: uppercase;
         letter-spacing: 0.14em;
-        color: var(--ink);
-        border: 1px solid rgba(43, 43, 41, 0.3);
+        color: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(255, 255, 255, 0.46);
         border-radius: 2px;
         background: transparent;
         cursor: pointer;
@@ -810,10 +860,10 @@
       }
 
       .cta-btn:hover {
-        background: var(--ink);
-        color: var(--paper);
-        border-color: var(--ink);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+        background: rgba(255, 255, 255, 0.92);
+        color: #040404;
+        border-color: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
       }
 
       .cta-btn--light {
@@ -830,9 +880,12 @@
       .hero-cta {
         position: absolute;
         left: 50%;
-        bottom: 13%;
+        bottom: 17%;
         transform: translateX(-50%);
         z-index: 4;
+        display: flex;
+        gap: 12px;
+        white-space: nowrap;
         opacity: calc(1 - var(--landing-progress) * 1.3);
       }
 
@@ -842,6 +895,185 @@
         text-align: center;
         margin: 14vh auto 8vh;
         opacity: calc(0.2 + var(--screen-progress) * 0.8);
+      }
+
+      /* ── gallery wall ── */
+
+      .gallery-wrap {
+        position: relative;
+        background: #000;
+        overflow: hidden;
+      }
+
+      .gallery-grid {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        /* center the card: half-width = 37.5vh (= 100vh × 3/4 ÷ 2) */
+        padding-inline: calc(50% - 24.375vh);
+        cursor: grab;
+      }
+
+      .gallery-grid::-webkit-scrollbar {
+        display: none;
+      }
+
+      .gallery-grid:active {
+        cursor: grabbing;
+      }
+
+      .gallery-frame {
+        position: relative;
+        /* height drives size; width follows from aspect-ratio */
+        flex: 0 0 auto;
+        height: 65vh;
+        aspect-ratio: 3 / 4;
+        scroll-snap-align: center;
+        background:
+          radial-gradient(ellipse 100% 45% at 50% 0%, rgba(60, 40, 6, 0.22) 0%, transparent 65%),
+          linear-gradient(180deg, #0f0c07 0%, #090705 55%, #050403 100%);
+        overflow: hidden;
+        cursor: pointer;
+        transform-origin: center center;
+        transform: scale(0.5);
+        opacity: 0.4;
+        transition:
+          transform 380ms cubic-bezier(0.22, 0.68, 0, 1.2),
+          opacity 380ms ease;
+      }
+
+      .gallery-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+        display: block;
+      }
+
+      /* inner edge shadow for depth */
+      .gallery-frame::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.55);
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      /* ── gallery fade edges — blends carousel into surrounding black ── */
+      .gallery-wrap {
+        position: relative;
+      }
+
+      .gallery-wrap::before,
+      .gallery-wrap::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 160px;
+        pointer-events: none;
+        z-index: 10;
+      }
+
+      .gallery-wrap::before {
+        left: 0;
+        background: linear-gradient(90deg, #040404 0%, transparent 100%);
+      }
+
+      .gallery-wrap::after {
+        right: 0;
+        background: linear-gradient(270deg, #040404 0%, transparent 100%);
+      }
+
+      /* ── carousel navigation ── */
+
+      /* ── collection strip ── */
+
+      .strip-outer {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        padding: 56px 0 48px;
+        -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+        mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+      }
+
+      .strip-track {
+        display: flex;
+        gap: 14px;
+        width: max-content;
+        animation: strip-scroll 72s linear infinite;
+        will-change: transform;
+      }
+
+      .strip-track:hover {
+        animation-play-state: paused;
+      }
+
+      .strip-item {
+        position: relative;
+        width: 268px;
+        height: 348px;
+        border-radius: 18px;
+        overflow: hidden;
+        flex-shrink: 0;
+        background: #060606;
+        cursor: pointer;
+      }
+
+      .strip-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        transition: transform 700ms cubic-bezier(0.22, 0.68, 0, 1.2);
+        display: block;
+      }
+
+      .strip-item:hover img {
+        transform: scale(1.07) translateY(-2%);
+      }
+
+      .strip-label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 52px 16px 20px;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.86));
+        transform: translateY(100%);
+        transition: transform 300ms ease;
+      }
+
+      .strip-item:hover .strip-label {
+        transform: translateY(0);
+      }
+
+      .strip-label-name {
+        display: block;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.13em;
+        color: rgba(255, 248, 228, 0.88);
+      }
+
+      .strip-label-trait {
+        display: block;
+        margin-top: 5px;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: rgba(255, 248, 228, 0.44);
+      }
+
+      @keyframes strip-scroll {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
       }
 
       @media (max-width: 980px) {
@@ -873,14 +1105,14 @@
         }
 
         .nav-center {
-          top: 10px;
-          width: 42px;
-          height: 42px;
+          top: 6px;
+          width: 60px;
+          height: 60px;
         }
 
         .nav-center img {
-          width: 26px;
-          height: 26px;
+          width: 46px;
+          height: 46px;
         }
 
         .hero {
@@ -904,7 +1136,7 @@
         }
         .hero-caption {
           width: calc(100% - 42px);
-          bottom: 20%;
+          bottom: 32%;
         }
 
         .content {
@@ -912,7 +1144,16 @@
         }
 
         .screen-section {
-          padding: 40px 16px 72px;
+          padding: 0 0 72px;
+        }
+
+        .gallery-frame {
+          height: auto;
+          width: 94vw;
+        }
+
+        .gallery-grid {
+          padding-inline: 3vw;
         }
 
         .screen-frame {
@@ -926,6 +1167,12 @@
 
         .detail-tab {
           min-height: 96px;
+        }
+
+        .strip-item {
+          width: 200px;
+          height: 260px;
+          border-radius: 12px;
         }
 
         .detail-tab strong {
@@ -969,10 +1216,10 @@
     <div class="pointer-field" aria-hidden="true">
       <div class="pointer-core"></div>
     </div>
-    <div class="page-dim" aria-hidden="true"></div>
 
     <div class="page-shell">
       <section class="landing">
+        <div class="page-dim" aria-hidden="true"></div>
         <header class="topbar">
           <nav class="nav-left">
             <a href="#collection">Collection</a>
@@ -981,11 +1228,11 @@
           </nav>
           <div class="nav-center">
             <a href="/" aria-label="NULLs home">
-              <img src="/assets/logo1.png" alt="NULLs mark">
+              <img src="/assets/Nlogo.png" alt="NULLs mark">
             </a>
           </div>
           <div class="nav-right">
-            <a href="#members">Become Unseen. Buy NULLs.</a>
+            <a href="#">Buy $NULLs</a>
           </div>
         </header>
 
@@ -1001,7 +1248,10 @@
             <span>no origin.</span>
           </div>
           <div class="hero-cta">
-            <a href="#members" class="cta-btn">Become Unseen</a>
+            <!-- TODO: replace # with pump.fun token link -->
+            <a href="#" class="cta-btn">Buy $NULLs</a>
+            <!-- TODO: replace # with mint link -->
+            <a href="#" class="cta-btn">Mint NULL</a>
           </div>
           <div class="scroll-prompt" aria-hidden="true">
             <span>Scroll</span>
@@ -1028,62 +1278,38 @@
 
       <section class="content" id="collection">
         <section class="screen-section">
-          <div class="screen-frame">
-            <div class="screen-glass">
-              <div class="screen-stage">
-                <figure class="screen-slide" style="--delay: 0s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n3.png" alt="NULLs sample one" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 4s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n4.png" alt="NULLs sample two" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 8s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n5.png" alt="NULLs sample three" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 12s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n6.png" alt="NULLs sample four" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 16s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n7.png" alt="NULLs sample five" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 20s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n8.png" alt="NULLs sample six" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 24s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n9.png" alt="NULLs sample seven" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 28s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n10.png" alt="NULLs sample eight" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 32s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n11.png" alt="NULLs sample nine" loading="lazy">
-                  </div>
-                </figure>
-                <figure class="screen-slide" style="--delay: 36s;">
-                  <div class="screen-portrait">
-                    <img src="/assets/n21.png" alt="NULLs sample ten" loading="lazy">
-                  </div>
-                </figure>
+          <div class="gallery-wrap" aria-label="NULLs collection">
+            <div class="gallery-grid">
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n4.png" alt="NULL — Stealth" loading="lazy">
               </div>
-              <div class="screen-overlay"></div>
-              <div class="screen-noise"></div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n5.png" alt="NULL — Void Eye" loading="lazy">
+              </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n6.png" alt="NULL — Pixel Bloom" loading="lazy">
+              </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n7.png" alt="NULL — LED Crown" loading="lazy">
+              </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n8.png" alt="NULL — Locked In" loading="lazy">
+              </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n9.png" alt="NULL — Gold Drip" loading="lazy">
+              </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n10.png" alt="NULL — Chromatic" loading="lazy">
+              </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n3.png" alt="NULL — Weeping" loading="lazy">
+              </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n21.png" alt="NULL — Origin" loading="lazy">
+              </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n11.png" alt="NULL — Gridded" loading="lazy">
+              </div>
             </div>
           </div>
 
@@ -1098,7 +1324,6 @@
                 data-title="$NULLS"
                 data-body="Memecoin attention wrapped around a visual identity that can last longer."
               >
-                <span class="detail-icon"><img src="/assets/logo1.png" alt=""></span>
                 <span class="detail-kicker">Ticker</span>
                 <strong>$NULLS</strong>
                 <span>Coin meets collection</span>
@@ -1112,7 +1337,6 @@
                 data-title="Pump.fun"
                 data-body="Fast attention, low friction, native meme distribution."
               >
-                <span class="detail-icon"><img src="/assets/logo1.png" alt=""></span>
                 <span class="detail-kicker">Launchpad</span>
                 <strong>Pump.fun</strong>
                 <span>Direct memecoin launch</span>
@@ -1126,7 +1350,6 @@
                 data-title="Solana"
                 data-body="Fast execution, sharp culture, and a cleaner lane for identity-first drops."
               >
-                <span class="detail-icon"><img src="/assets/logo1.png" alt=""></span>
                 <span class="detail-kicker">Chain</span>
                 <strong>Solana</strong>
                 <span>Fast and culture native</span>
@@ -1136,7 +1359,6 @@
 
           <div class="story-grid" id="manifesto">
             <article class="story-card">
-              <span class="story-icon"><img src="/assets/logo1.png" alt=""></span>
               <span class="story-card-label">The Concept</span>
               <h3>Identity.</h3>
               <p>
@@ -1145,7 +1367,6 @@
               </p>
             </article>
             <article class="story-card">
-              <span class="story-icon"><img src="/assets/logo1.png" alt=""></span>
               <span class="story-card-label">The Art</span>
               <h3>Craft.</h3>
               <p>
@@ -1154,7 +1375,6 @@
               </p>
             </article>
             <article class="story-card">
-              <span class="story-icon"><img src="/assets/logo1.png" alt=""></span>
               <span class="story-card-label">The Vision</span>
               <h3>Owned.</h3>
               <p>
@@ -1311,6 +1531,59 @@
         };
 
         frame();
+      })();
+
+      /* ── gallery coverflow carousel ── */
+      (() => {
+        const grid = document.querySelector('.gallery-grid');
+        if (!grid) return;
+        const frames = [...grid.querySelectorAll('.gallery-frame')];
+
+        function update() {
+          const cx = grid.scrollLeft + grid.clientWidth / 2;
+          frames.forEach(f => {
+            const fc = f.offsetLeft + f.offsetWidth / 2;
+            const dist = Math.abs(cx - fc);
+            const step = f.offsetWidth + 20; // card width + gap
+            // t: 0 = centered, 1+ = one card away
+            const t = Math.min(dist / step, 1);
+            // center = scale(1.0), one step = scale(0.5) → 2× size difference
+            const scale = 1.0 - t * 0.5;
+            const opacity = 1.0 - t * 0.6;
+            f.style.transform = `scale(${scale.toFixed(4)})`;
+            f.style.opacity = opacity.toFixed(4);
+          });
+        }
+
+        grid.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', () => {
+          scrollToMiddle();
+          update();
+        });
+
+        /* start on the middle card */
+        function scrollToMiddle() {
+          const mid = frames[Math.floor(frames.length / 2)];
+          grid.scrollLeft = mid.offsetLeft + mid.offsetWidth / 2 - grid.clientWidth / 2;
+        }
+
+        /* wait for layout before scrolling */
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          scrollToMiddle();
+          update();
+        }));
+
+        /* drag to scroll */
+        let down = false, sx, sl;
+        grid.addEventListener('mousedown', e => {
+          down = true; sx = e.pageX; sl = grid.scrollLeft;
+        });
+        window.addEventListener('mouseup', () => { down = false; });
+        grid.addEventListener('mousemove', e => {
+          if (!down) return;
+          e.preventDefault();
+          grid.scrollLeft = sl - (e.pageX - sx) * 1.5;
+        });
       })();
     </script>
   </body>
