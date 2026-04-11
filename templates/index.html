@@ -913,9 +913,8 @@
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
-        padding-block: 32px;
-        /* center the card: half-width = min(30vh, 338px) */
-        padding-inline: calc(50% - min(30vh, 338px));
+        /* center the card: half-width = 37.5vh (= 100vh × 3/4 ÷ 2) */
+        padding-inline: calc(50% - 37.5vh);
         cursor: grab;
       }
 
@@ -931,7 +930,7 @@
         position: relative;
         /* height drives size; width follows from aspect-ratio */
         flex: 0 0 auto;
-        height: min(80vh, 900px);
+        height: 100vh;
         aspect-ratio: 3 / 4;
         scroll-snap-align: center;
         background:
@@ -1122,11 +1121,11 @@
 
         .gallery-frame {
           height: auto;
-          width: 82vw;
+          width: 94vw;
         }
 
         .gallery-grid {
-          padding-inline: 9vw;
+          padding-inline: 3vw;
         }
 
         .screen-frame {
