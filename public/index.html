@@ -902,17 +902,20 @@
       .gallery-wrap {
         position: relative;
         background: #000;
+        padding: 56px 0 64px;
         overflow: hidden;
       }
 
       .gallery-grid {
         display: flex;
-        flex-direction: row;
-        gap: 2px;
+        align-items: center;
+        gap: 18px;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
+        /* pad so first/last card can sit at center */
+        padding-inline: calc(50% - 140px);
         cursor: grab;
       }
 
@@ -926,20 +929,20 @@
 
       .gallery-frame {
         position: relative;
-        flex: 0 0 clamp(200px, 28vw, 380px);
+        flex: 0 0 280px;
         aspect-ratio: 3 / 4;
-        scroll-snap-align: start;
+        scroll-snap-align: center;
         background:
           radial-gradient(ellipse 100% 45% at 50% 0%, rgba(60, 40, 6, 0.22) 0%, transparent 65%),
           linear-gradient(180deg, #0f0c07 0%, #090705 55%, #050403 100%);
         overflow: hidden;
         cursor: pointer;
-        transition: transform 380ms cubic-bezier(0.22, 0.68, 0, 1.2);
-      }
-
-      .gallery-frame:hover {
-        transform: scale(1.03) translateY(-4px);
-        z-index: 2;
+        transform-origin: center center;
+        transform: scale(0.68);
+        opacity: 0.45;
+        transition:
+          transform 420ms cubic-bezier(0.22, 0.68, 0, 1.2),
+          opacity 420ms ease;
       }
 
       .gallery-frame img {
@@ -948,11 +951,6 @@
         object-fit: cover;
         object-position: center center;
         display: block;
-        transition: transform 600ms cubic-bezier(0.22, 0.68, 0, 1.2);
-      }
-
-      .gallery-frame:hover img {
-        transform: scale(1.05);
       }
 
       /* inner edge shadow for depth */
@@ -960,7 +958,7 @@
         content: "";
         position: absolute;
         inset: 0;
-        box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+        box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.55);
         pointer-events: none;
         z-index: 2;
       }
@@ -1503,23 +1501,41 @@
         frame();
       })();
 
-      /* ── gallery drag-to-scroll ── */
+      /* ── gallery coverflow carousel ── */
       (() => {
         const grid = document.querySelector('.gallery-grid');
         if (!grid) return;
-        let isDown = false, startX, scrollLeft;
+        const frames = [...grid.querySelectorAll('.gallery-frame')];
+
+        function update() {
+          const cx = grid.scrollLeft + grid.clientWidth / 2;
+          frames.forEach(f => {
+            const fc = f.offsetLeft + f.offsetWidth / 2;
+            const dist = Math.abs(cx - fc);
+            const step = f.offsetWidth + 18; // card + gap
+            // t: 0 = centered, 1 = one card away, clamped
+            const t = Math.min(dist / step, 1);
+            const scale = 1 - t * 0.32;
+            const opacity = 1 - t * 0.55;
+            f.style.transform = `scale(${scale.toFixed(4)})`;
+            f.style.opacity = opacity.toFixed(4);
+          });
+        }
+
+        grid.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+        requestAnimationFrame(update);
+
+        /* drag to scroll */
+        let down = false, sx, sl;
         grid.addEventListener('mousedown', e => {
-          isDown = true;
-          startX = e.pageX - grid.offsetLeft;
-          scrollLeft = grid.scrollLeft;
+          down = true; sx = e.pageX; sl = grid.scrollLeft;
         });
-        grid.addEventListener('mouseleave', () => { isDown = false; });
-        grid.addEventListener('mouseup', () => { isDown = false; });
+        window.addEventListener('mouseup', () => { down = false; });
         grid.addEventListener('mousemove', e => {
-          if (!isDown) return;
+          if (!down) return;
           e.preventDefault();
-          const x = e.pageX - grid.offsetLeft;
-          grid.scrollLeft = scrollLeft - (x - startX) * 1.4;
+          grid.scrollLeft = sl - (e.pageX - sx) * 1.5;
         });
       })();
     </script>
