@@ -902,20 +902,20 @@
       .gallery-wrap {
         position: relative;
         background: #000;
-        padding: 56px 0 64px;
         overflow: hidden;
       }
 
       .gallery-grid {
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 24px;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
-        /* pad so first/last card can reach the viewport center */
-        padding-inline: calc(50% - 175px);
+        padding-block: 32px;
+        /* center the card: half-width = min(30vh, 338px) */
+        padding-inline: calc(50% - min(30vh, 338px));
         cursor: grab;
       }
 
@@ -929,7 +929,9 @@
 
       .gallery-frame {
         position: relative;
-        flex: 0 0 350px;
+        /* height drives size; width follows from aspect-ratio */
+        flex: 0 0 auto;
+        height: min(80vh, 900px);
         aspect-ratio: 3 / 4;
         scroll-snap-align: center;
         background:
@@ -1116,6 +1118,15 @@
 
         .screen-section {
           padding: 0 0 72px;
+        }
+
+        .gallery-frame {
+          height: auto;
+          width: 82vw;
+        }
+
+        .gallery-grid {
+          padding-inline: 9vw;
         }
 
         .screen-frame {
