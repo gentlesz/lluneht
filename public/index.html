@@ -428,7 +428,7 @@
       .screen-section {
         position: relative;
         min-height: 100vh;
-        padding: 84px 28px 92px;
+        padding: 0 0 92px;
         background:
           radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.03), transparent 18%),
           linear-gradient(180deg, #080808 0%, #020202 100%);
@@ -897,6 +897,160 @@
         opacity: calc(0.2 + var(--screen-progress) * 0.8);
       }
 
+      /* ── gallery wall ── */
+
+      .gallery-wrap {
+        position: relative;
+        padding: 0 32px 56px;
+        background:
+          radial-gradient(ellipse 100% 50% at 50% 0%, rgba(80, 58, 28, 0.55), transparent 55%),
+          linear-gradient(180deg, #1c1915 0%, #0e0c09 100%);
+        overflow: hidden;
+      }
+
+      /* concrete wall texture */
+      .gallery-wrap::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          repeating-linear-gradient(0deg, transparent, transparent 47px, rgba(0,0,0,0.18) 47px, rgba(0,0,0,0.18) 48px),
+          repeating-linear-gradient(90deg, transparent, transparent 95px, rgba(0,0,0,0.1) 95px, rgba(0,0,0,0.1) 96px);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* side vignette */
+      .gallery-wrap::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse 28% 100% at 0% 50%, rgba(0,0,0,0.55), transparent),
+          radial-gradient(ellipse 28% 100% at 100% 50%, rgba(0,0,0,0.55), transparent);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .gallery-ceiling {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 14px;
+        padding-top: 0;
+      }
+
+      .gallery-cell-light {
+        display: flex;
+        justify-content: center;
+        position: relative;
+      }
+
+      .gallery-bulb {
+        position: relative;
+        width: 22px;
+        height: 14px;
+        border-radius: 50% 50% 40% 40%;
+        background: radial-gradient(ellipse at 50% 70%, #fff8e0, #ffd96a 40%, #c8880a 80%, transparent 100%);
+        box-shadow:
+          0 0 6px 3px rgba(255, 230, 140, 0.85),
+          0 0 18px 6px rgba(255, 210, 80, 0.45),
+          0 0 40px 12px rgba(255, 190, 40, 0.18);
+        z-index: 3;
+      }
+
+      /* spotlight cone */
+      .gallery-bulb::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 900px;
+        height: 800px;
+        background: radial-gradient(ellipse 55% 100% at 50% 0%,
+          rgba(255, 230, 140, 0.28) 0%,
+          rgba(255, 210, 100, 0.10) 30%,
+          rgba(255, 190, 60, 0.03) 55%,
+          transparent 70%);
+        clip-path: polygon(40% 0%, 60% 0%, 78% 100%, 22% 100%);
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .gallery-grid {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 14px;
+        margin-top: 32px;
+      }
+
+      .gallery-frame {
+        position: relative;
+        aspect-ratio: 3 / 4;
+        background: #06040200;
+        box-shadow:
+          0 0 0 5px #16120d,
+          0 0 0 6px rgba(255, 255, 255, 0.05),
+          0 24px 70px rgba(0, 0, 0, 0.75),
+          0 8px 24px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 380ms cubic-bezier(0.22, 0.68, 0, 1.2), box-shadow 380ms ease;
+      }
+
+      .gallery-frame:hover {
+        transform: scale(1.035) translateY(-5px);
+        box-shadow:
+          0 0 0 5px #16120d,
+          0 0 0 6px rgba(255, 255, 255, 0.08),
+          0 36px 90px rgba(0, 0, 0, 0.8),
+          0 0 50px rgba(255, 210, 100, 0.07);
+      }
+
+      .gallery-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+        transition: transform 600ms cubic-bezier(0.22, 0.68, 0, 1.2);
+      }
+
+      .gallery-frame:hover img {
+        transform: scale(1.05) translateY(-1%);
+      }
+
+      /* warm light from above hitting frame top */
+      .gallery-frame::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 52%;
+        background: radial-gradient(ellipse 100% 90% at 50% -10%,
+          rgba(255, 225, 140, 0.18),
+          rgba(255, 200, 80, 0.06) 40%,
+          transparent 70%);
+        pointer-events: none;
+        z-index: 2;
+        mix-blend-mode: screen;
+      }
+
+      /* inner edge shadow — depth of frame */
+      .gallery-frame::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        box-shadow:
+          inset 0 0 50px rgba(0, 0, 0, 0.55),
+          inset 0 0 12px rgba(0, 0, 0, 0.4);
+        pointer-events: none;
+        z-index: 3;
+      }
+
       /* ── collection strip ── */
 
       .strip-outer {
@@ -1049,7 +1203,22 @@
         }
 
         .screen-section {
-          padding: 40px 16px 72px;
+          padding: 0 0 72px;
+        }
+
+        .gallery-wrap {
+          padding: 0 16px 40px;
+        }
+
+        .gallery-ceiling,
+        .gallery-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+        }
+
+        .gallery-cell-light:nth-child(2),
+        .gallery-cell-light:nth-child(4) {
+          display: none;
         }
 
         .screen-frame {
@@ -1069,6 +1238,22 @@
           width: 200px;
           height: 260px;
           border-radius: 12px;
+        }
+
+        .gallery-ceiling,
+        .gallery-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 8px;
+        }
+
+        .gallery-cell-light:nth-child(3),
+        .gallery-cell-light:nth-child(4),
+        .gallery-cell-light:nth-child(5) {
+          display: none;
+        }
+
+        .gallery-wrap {
+          padding: 0 12px 32px;
         }
 
         .detail-tab strong {
@@ -1174,177 +1359,44 @@
 
       <section class="content" id="collection">
         <section class="screen-section">
-          <div class="strip-outer" aria-label="NULLs collection preview">
-            <div class="strip-track">
-              <!-- set 1 -->
-              <div class="strip-item">
-                <img src="/assets/nobg/n1.png" alt="NULL — Cosmic" loading="lazy">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Cosmic</span>
-                </div>
-              </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n7.png" alt="NULL — LED Crown" loading="lazy">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">LED Crown</span>
-                </div>
-              </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n9.png" alt="NULL — Gold Drip" loading="lazy">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Gold Drip</span>
-                </div>
-              </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n3.png" alt="NULL — Weeping" loading="lazy">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Weeping</span>
-                </div>
-              </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n10.png" alt="NULL — Chromatic" loading="lazy">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Chromatic</span>
-                </div>
-              </div>
-              <div class="strip-item">
+          <div class="gallery-wrap" aria-label="NULLs collection">
+            <div class="gallery-ceiling">
+              <div class="gallery-cell-light"><div class="gallery-bulb"></div></div>
+              <div class="gallery-cell-light"><div class="gallery-bulb"></div></div>
+              <div class="gallery-cell-light"><div class="gallery-bulb"></div></div>
+              <div class="gallery-cell-light"><div class="gallery-bulb"></div></div>
+              <div class="gallery-cell-light"><div class="gallery-bulb"></div></div>
+            </div>
+            <div class="gallery-grid">
+              <div class="gallery-frame">
                 <img src="/assets/nobg/n4.png" alt="NULL — Stealth" loading="lazy">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Stealth</span>
-                </div>
               </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n2.png" alt="NULL — Gridded" loading="lazy">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Gridded</span>
-                </div>
-              </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n8.png" alt="NULL — Locked In" loading="lazy">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Locked In</span>
-                </div>
-              </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n6.png" alt="NULL — Pixel Bloom" loading="lazy">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Pixel Bloom</span>
-                </div>
-              </div>
-              <div class="strip-item">
+              <div class="gallery-frame">
                 <img src="/assets/nobg/n5.png" alt="NULL — Void Eye" loading="lazy">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Void Eye</span>
-                </div>
               </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n21.png" alt="NULL — Checker" loading="lazy">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Checker</span>
-                </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n6.png" alt="NULL — Pixel Bloom" loading="lazy">
               </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n11.png" alt="NULL — Chromatic II" loading="lazy">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Chromatic II</span>
-                </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n7.png" alt="NULL — LED Crown" loading="lazy">
               </div>
-              <!-- set 2 — seamless loop duplicate -->
-              <div class="strip-item">
-                <img src="/assets/nobg/n1.png" alt="" loading="lazy" aria-hidden="true">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Cosmic</span>
-                </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n1.png" alt="NULL — Cosmic" loading="lazy">
               </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n7.png" alt="" loading="lazy" aria-hidden="true">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">LED Crown</span>
-                </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n8.png" alt="NULL — Locked In" loading="lazy">
               </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n9.png" alt="" loading="lazy" aria-hidden="true">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Gold Drip</span>
-                </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n9.png" alt="NULL — Gold Drip" loading="lazy">
               </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n3.png" alt="" loading="lazy" aria-hidden="true">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Weeping</span>
-                </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n10.png" alt="NULL — Chromatic" loading="lazy">
               </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n10.png" alt="" loading="lazy" aria-hidden="true">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Chromatic</span>
-                </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n3.png" alt="NULL — Weeping" loading="lazy">
               </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n4.png" alt="" loading="lazy" aria-hidden="true">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Stealth</span>
-                </div>
-              </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n2.png" alt="" loading="lazy" aria-hidden="true">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Gridded</span>
-                </div>
-              </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n8.png" alt="" loading="lazy" aria-hidden="true">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Locked In</span>
-                </div>
-              </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n6.png" alt="" loading="lazy" aria-hidden="true">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Pixel Bloom</span>
-                </div>
-              </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n5.png" alt="" loading="lazy" aria-hidden="true">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Void Eye</span>
-                </div>
-              </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n21.png" alt="" loading="lazy" aria-hidden="true">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Checker</span>
-                </div>
-              </div>
-              <div class="strip-item">
-                <img src="/assets/nobg/n11.png" alt="" loading="lazy" aria-hidden="true">
-                <div class="strip-label">
-                  <span class="strip-label-name">NULL</span>
-                  <span class="strip-label-trait">Chromatic II</span>
-                </div>
+              <div class="gallery-frame">
+                <img src="/assets/nobg/n2.png" alt="NULL — Gridded" loading="lazy">
               </div>
             </div>
           </div>
