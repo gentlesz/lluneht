@@ -1266,38 +1266,7 @@
       <section class="content" id="collection">
         <section class="screen-section">
           <div class="gallery-wrap" aria-label="NULLs collection">
-            <div class="gallery-grid">
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n4.png" alt="NULL — Stealth" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n5.png" alt="NULL — Void Eye" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n6.png" alt="NULL — Pixel Bloom" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n7.png" alt="NULL — LED Crown" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n8.png" alt="NULL — Locked In" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n9.png" alt="NULL — Gold Drip" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n10.png" alt="NULL — Chromatic" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n3.png" alt="NULL — Weeping" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n21.png" alt="NULL — Origin" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n11.png" alt="NULL — Gridded" loading="lazy">
-              </div>
-            </div>
+            <div class="gallery-grid"></div>
           </div>
 
           <div class="details-widget" id="members">
@@ -1524,7 +1493,49 @@
       (() => {
         const grid = document.querySelector('.gallery-grid');
         if (!grid) return;
-        const frames = [...grid.querySelectorAll('.gallery-frame')];
+        let frames = [];
+
+        function imageExists(src) {
+          return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+            img.src = src;
+          });
+        }
+
+        async function populateGallery() {
+          const foundIndexes = [];
+          let misses = 0;
+          let index = 1;
+          const maxMisses = 30;
+
+          while (misses < maxMisses && index <= 5000) {
+            const src = `/assets/n${index}.png`;
+            if (await imageExists(src)) {
+              foundIndexes.push(index);
+              misses = 0;
+            } else {
+              misses += 1;
+            }
+            index += 1;
+          }
+
+          foundIndexes.forEach((imageIndex) => {
+            const frame = document.createElement('div');
+            frame.className = 'gallery-frame';
+
+            const img = document.createElement('img');
+            img.src = `/assets/n${imageIndex}.png`;
+            img.alt = `NULL ${imageIndex}`;
+            img.loading = 'lazy';
+
+            frame.appendChild(img);
+            grid.appendChild(frame);
+          });
+
+          frames = [...grid.querySelectorAll('.gallery-frame')];
+        }
 
         function update() {
           const cx = grid.scrollLeft + grid.clientWidth / 2;
@@ -1550,15 +1561,20 @@
 
         /* start on the middle card */
         function scrollToMiddle() {
+          if (frames.length === 0) return;
           const mid = frames[Math.floor(frames.length / 2)];
           grid.scrollLeft = mid.offsetLeft + mid.offsetWidth / 2 - grid.clientWidth / 2;
         }
 
-        /* wait for layout before scrolling */
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          scrollToMiddle();
-          update();
-        }));
+        populateGallery().then(() => {
+          if (frames.length === 0) return;
+
+          /* wait for layout before scrolling */
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            scrollToMiddle();
+            update();
+          }));
+        });
 
         /* drag to scroll */
         let down = false, sx, sl;
