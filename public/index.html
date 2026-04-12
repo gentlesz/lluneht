@@ -1624,19 +1624,11 @@
         }
 
         async function populateFromNumericProbe() {
-          const maxIndex = 5000;
-          const maxConsecutiveMisses = 40;
-          let misses = 0;
-
-          for (let index = 1; index <= maxIndex && misses < maxConsecutiveMisses; index += 1) {
+          for (let index = 1; index <= 25; index += 1) {
             const fileName = `n${index}.png`;
             const exists = await imageExists(`/assets/${fileName}`);
-
             if (exists) {
               appendImage(fileName);
-              misses = 0;
-            } else {
-              misses += 1;
             }
           }
         }

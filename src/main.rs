@@ -6,7 +6,7 @@ use axum::{
     Json, Router,
 };
 use serde::Serialize;
-use std::{fs, net::SocketAddr, path::Path, time::Duration};
+use std::{fs, net::SocketAddr, time::Duration};
 use tower_http::services::ServeDir;
 
 #[tokio::main]
@@ -52,33 +52,37 @@ async fn assets_manifest() -> impl IntoResponse {
 }
 
 fn collection_images() -> Vec<String> {
-    let mut images: Vec<String> = fs::read_dir("assets")
+    let mut numbered_images: Vec<(u32, String)> = fs::read_dir("assets")
         .ok()
         .into_iter()
         .flatten()
         .filter_map(|entry| {
             let path = entry.ok()?.path();
-            if !path.is_file() || !is_supported_image(&path) {
+            if !path.is_file() {
                 return None;
             }
 
-            Some(path.file_name()?.to_str()?.to_string())
+            let extension = path.extension()?.to_str()?;
+            if !extension.eq_ignore_ascii_case("png") {
+                return None;
+            }
+
+            let stem = path.file_stem()?.to_str()?;
+            let index = stem.strip_prefix('n')?.parse::<u32>().ok()?;
+            if !(1..=25).contains(&index) {
+                return None;
+            }
+
+            let file_name = path.file_name()?.to_str()?.to_string();
+            Some((index, file_name))
         })
         .collect();
 
-    images.sort_by_key(|name| name.to_ascii_lowercase());
-    images
-}
-
-fn is_supported_image(path: &Path) -> bool {
-    let Some(ext) = path.extension().and_then(|ext| ext.to_str()) else {
-        return false;
-    };
-
-    matches!(
-        ext.to_ascii_lowercase().as_str(),
-        "png" | "jpg" | "jpeg" | "webp" | "gif" | "avif"
-    )
+    numbered_images.sort_by_key(|(index, _)| *index);
+    numbered_images
+        .into_iter()
+        .map(|(_, file_name)| file_name)
+        .collect()
 }
 
 async fn shutdown_signal() {
