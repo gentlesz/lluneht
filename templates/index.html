@@ -69,6 +69,54 @@
         background: #040404;
       }
 
+      body.is-loading {
+        overflow: hidden;
+      }
+
+      .loading-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: grid;
+        place-items: center;
+        gap: 22px;
+        background: #050505;
+        transition: opacity 420ms ease, visibility 420ms ease;
+      }
+
+      .loading-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .loading-logo {
+        width: clamp(220px, 28vw, 420px);
+        height: clamp(220px, 28vw, 420px);
+        object-fit: contain;
+        animation: logo-strobe 0.5s steps(2, end) infinite;
+      }
+
+      .loading-bar {
+        width: min(340px, 68vw);
+        height: 7px;
+        border: 1px solid rgba(255, 255, 255, 0.36);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .loading-bar-fill {
+        display: block;
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #f5f5f5 0%, #9e9e9e 100%);
+        transition: width 180ms ease;
+      }
+
+      @keyframes logo-strobe {
+        0%, 49% { opacity: 1; }
+        50%, 100% { opacity: 0.08; }
+      }
+
       body.block-hover {
         background:
           radial-gradient(circle at 50% 6%, rgba(255, 255, 255, 0.86), transparent 20%),
@@ -1191,7 +1239,14 @@
       }
     </style>
   </head>
-  <body>
+  <body class="is-loading">
+    <div class="loading-screen" id="loading-screen" aria-live="polite" aria-label="Loading page">
+      <img src="/assets/Nlogo.png" alt="NULLs loading logo" class="loading-logo">
+      <div class="loading-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span class="loading-bar-fill" id="loading-bar-fill"></span>
+      </div>
+    </div>
+
     <svg width="0" height="0" aria-hidden="true" focusable="false">
       <filter id="null-distort">
         <feTurbulence
@@ -1232,7 +1287,7 @@
             </a>
           </div>
           <div class="nav-right">
-            <a href="#">Buy $NULLs</a>
+            <a href="#">Buy Coin</a>
           </div>
         </header>
 
@@ -1249,9 +1304,9 @@
           </div>
           <div class="hero-cta">
             <!-- TODO: replace # with pump.fun token link -->
-            <a href="#" class="cta-btn">Buy $NULLs</a>
+            <a href="#" class="cta-btn">Buy Coin</a>
             <!-- TODO: replace # with mint link -->
-            <a href="#" class="cta-btn">Mint NULL</a>
+            <a href="#" class="cta-btn">Mint NFT</a>
           </div>
           <div class="scroll-prompt" aria-hidden="true">
             <span>Scroll</span>
@@ -1261,18 +1316,7 @@
           </div>
         </div>
 
-        <footer class="bottombar">
-          <div class="bottom-left">
-            <span>&copy; NULLs 2026</span>
-            <a href="#collection">OG NULLs Site</a>
-            <a href="#manifesto">No Origin</a>
-            <!-- TODO: replace # with your project's X handle -->
-            <a href="https://x.com" target="_blank" rel="noreferrer">X</a>
-          </div>
-          <div class="bottom-right">
-            <span>Solana</span>
-          </div>
-        </footer>
+
 
       </section>
 
@@ -1280,36 +1324,11 @@
         <section class="screen-section">
           <div class="gallery-wrap" aria-label="NULLs collection">
             <div class="gallery-grid">
+              {% for image in images %}
               <div class="gallery-frame">
-                <img src="/assets/nobg/n4.png" alt="NULL — Stealth" loading="lazy">
+                <img src="/assets/{{ image }}" alt="NULL {{ loop.index }}" loading="lazy">
               </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n5.png" alt="NULL — Void Eye" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n6.png" alt="NULL — Pixel Bloom" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n7.png" alt="NULL — LED Crown" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n8.png" alt="NULL — Locked In" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n9.png" alt="NULL — Gold Drip" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n10.png" alt="NULL — Chromatic" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n3.png" alt="NULL — Weeping" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n21.png" alt="NULL — Origin" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n11.png" alt="NULL — Gridded" loading="lazy">
-              </div>
+              {% endfor %}
             </div>
           </div>
 
@@ -1386,7 +1405,7 @@
 
           <div class="section-cta">
             <!-- TODO: replace # with pump.fun token link -->
-            <a href="#" class="cta-btn cta-btn--light">Buy $NULLS on Pump.fun</a>
+            <a href="#" class="cta-btn cta-btn--light">Buy Coin</a>
           </div>
         </section>
 
@@ -1416,6 +1435,51 @@
         const collection = document.getElementById("collection");
         const detailTabs = Array.from(document.querySelectorAll(".detail-tab"));
         const storyCards = Array.from(document.querySelectorAll(".story-card"));
+        const loadingScreen = document.getElementById("loading-screen");
+        const loadingBarFill = document.getElementById("loading-bar-fill");
+
+        const updateLoader = (loaded, total) => {
+          const progress = total > 0 ? Math.round((loaded / total) * 100) : 100;
+          loadingBarFill.style.width = `${progress}%`;
+          loadingBarFill.parentElement.setAttribute("aria-valuenow", String(progress));
+        };
+
+        const preloadImage = (src) => new Promise((resolve) => {
+          const img = new Image();
+          img.onload = resolve;
+          img.onerror = resolve;
+          img.src = src;
+        });
+
+        const sourceSet = new Set(
+          Array.from(document.querySelectorAll("img"))
+            .map((img) => img.getAttribute("src"))
+            .filter(Boolean)
+        );
+
+        const preloadAllAssets = async () => {
+          const sources = Array.from(sourceSet);
+          let loaded = 0;
+          updateLoader(loaded, sources.length);
+
+          await Promise.all(
+            sources.map((src) =>
+              preloadImage(src).then(() => {
+                loaded += 1;
+                updateLoader(loaded, sources.length);
+              })
+            )
+          );
+
+          if (document.readyState !== "complete") {
+            await new Promise((resolve) => window.addEventListener("load", resolve, { once: true }));
+          }
+
+          loadingScreen.classList.add("hidden");
+          document.body.classList.remove("is-loading");
+        };
+
+        preloadAllAssets();
 
         let pointerX = window.innerWidth * 0.5;
         let pointerY = window.innerHeight * 0.42;
