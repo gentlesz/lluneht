@@ -1249,9 +1249,9 @@
           </div>
           <div class="hero-cta">
             <!-- TODO: replace # with pump.fun token link -->
-            <a href="#" class="cta-btn">Buy $NULLs</a>
+            <a href="#" class="cta-btn">BUY</a>
             <!-- TODO: replace # with mint link -->
-            <a href="#" class="cta-btn">Mint NULL</a>
+            <a href="#" class="cta-btn">MINT</a>
           </div>
           <div class="scroll-prompt" aria-hidden="true">
             <span>Scroll</span>
@@ -1261,18 +1261,7 @@
           </div>
         </div>
 
-        <footer class="bottombar">
-          <div class="bottom-left">
-            <span>&copy; NULLs 2026</span>
-            <a href="#collection">OG NULLs Site</a>
-            <a href="#manifesto">No Origin</a>
-            <!-- TODO: replace # with your project's X handle -->
-            <a href="https://x.com" target="_blank" rel="noreferrer">X</a>
-          </div>
-          <div class="bottom-right">
-            <span>Solana</span>
-          </div>
-        </footer>
+
 
       </section>
 
@@ -1280,36 +1269,11 @@
         <section class="screen-section">
           <div class="gallery-wrap" aria-label="NULLs collection">
             <div class="gallery-grid">
+              {% for image in images %}
               <div class="gallery-frame">
-                <img src="/assets/nobg/n4.png" alt="NULL — Stealth" loading="lazy">
+                <img src="/assets/{{ image }}" alt="NULL {{ loop.index }}" loading="lazy">
               </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n5.png" alt="NULL — Void Eye" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n6.png" alt="NULL — Pixel Bloom" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n7.png" alt="NULL — LED Crown" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n8.png" alt="NULL — Locked In" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n9.png" alt="NULL — Gold Drip" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n10.png" alt="NULL — Chromatic" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n3.png" alt="NULL — Weeping" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n21.png" alt="NULL — Origin" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n11.png" alt="NULL — Gridded" loading="lazy">
-              </div>
+              {% endfor %}
             </div>
           </div>
 
@@ -1386,7 +1350,7 @@
 
           <div class="section-cta">
             <!-- TODO: replace # with pump.fun token link -->
-            <a href="#" class="cta-btn cta-btn--light">Buy $NULLS on Pump.fun</a>
+            <a href="#" class="cta-btn cta-btn--light">BUY</a>
           </div>
         </section>
 
