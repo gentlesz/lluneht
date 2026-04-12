@@ -1601,6 +1601,46 @@
           return stem || imageName;
         }
 
+        function imageExists(src) {
+          return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+            img.src = src;
+          });
+        }
+
+        function appendImage(imageName) {
+          const frame = document.createElement('div');
+          frame.className = 'gallery-frame';
+
+          const img = document.createElement('img');
+          img.src = `/assets/${imageName}`;
+          img.alt = `NULL ${labelFor(imageName)}`;
+          img.loading = 'lazy';
+
+          frame.appendChild(img);
+          grid.appendChild(frame);
+        }
+
+        async function populateFromNumericProbe() {
+          const maxIndex = 5000;
+          const maxConsecutiveMisses = 40;
+          let misses = 0;
+
+          for (let index = 1; index <= maxIndex && misses < maxConsecutiveMisses; index += 1) {
+            const fileName = `n${index}.png`;
+            const exists = await imageExists(`/assets/${fileName}`);
+
+            if (exists) {
+              appendImage(fileName);
+              misses = 0;
+            } else {
+              misses += 1;
+            }
+          }
+        }
+
         async function populateGallery() {
           try {
             const response = await fetch('/assets-manifest.json', { cache: 'no-store' });
@@ -1610,21 +1650,10 @@
 
             const manifest = await response.json();
             const images = Array.isArray(manifest.images) ? manifest.images : [];
-
-            images.forEach((imageName) => {
-              const frame = document.createElement('div');
-              frame.className = 'gallery-frame';
-
-              const img = document.createElement('img');
-              img.src = `/assets/${imageName}`;
-              img.alt = `NULL ${labelFor(imageName)}`;
-              img.loading = 'lazy';
-
-              frame.appendChild(img);
-              grid.appendChild(frame);
-            });
+            images.forEach(appendImage);
           } catch (error) {
-            console.error('Failed to load /assets-manifest.json for gallery', error);
+            console.warn('Manifest unavailable, falling back to /assets/n*.png probe.', error);
+            await populateFromNumericProbe();
           }
 
           frames = [...grid.querySelectorAll('.gallery-frame')];
