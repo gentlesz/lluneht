@@ -992,6 +992,54 @@
 
       /* ── carousel navigation ── */
 
+      /* ── carousel navigation ── */
+      .gallery-nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        padding: 36px 0 20px;
+        position: relative;
+        z-index: 20;
+      }
+
+      .gallery-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 96px;
+        height: 96px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 50%;
+        background: transparent;
+        cursor: pointer;
+        padding: 0;
+        transition: border-color 300ms ease, transform 300ms cubic-bezier(0.22, 0.68, 0, 1.2), opacity 300ms ease;
+        user-select: none;
+        opacity: 0.55;
+      }
+
+      .gallery-arrow img {
+        width: 52px;
+        height: 52px;
+        object-fit: contain;
+        filter: invert(1);
+        transition: transform 300ms cubic-bezier(0.22, 0.68, 0, 1.2);
+        display: block;
+      }
+
+      .gallery-prev img { transform: scaleX(-1); }
+
+      .gallery-arrow:hover {
+        border-color: rgba(255, 255, 255, 0.42);
+        opacity: 1;
+        transform: scale(1.06);
+      }
+
+      .gallery-prev:hover img { transform: scaleX(-1) translateX(-3px); }
+      .gallery-next:hover img { transform: translateX(3px); }
+      .gallery-arrow:active { transform: scale(0.94); }
+
       /* ── collection strip ── */
 
       .strip-outer {
@@ -1249,9 +1297,9 @@
           </div>
           <div class="hero-cta">
             <!-- TODO: replace # with pump.fun token link -->
-            <a href="#" class="cta-btn">Buy $NULLs</a>
+            <a href="#" class="cta-btn">BUY</a>
             <!-- TODO: replace # with mint link -->
-            <a href="#" class="cta-btn">Mint NULL</a>
+            <a href="#" class="cta-btn">MINT</a>
           </div>
           <div class="scroll-prompt" aria-hidden="true">
             <span>Scroll</span>
@@ -1261,57 +1309,23 @@
           </div>
         </div>
 
-        <footer class="bottombar">
-          <div class="bottom-left">
-            <span>&copy; NULLs 2026</span>
-            <a href="#collection">OG NULLs Site</a>
-            <a href="#manifesto">No Origin</a>
-            <!-- TODO: replace # with your project's X handle -->
-            <a href="https://x.com" target="_blank" rel="noreferrer">X</a>
-          </div>
-          <div class="bottom-right">
-            <span>Solana</span>
-          </div>
-        </footer>
 
       </section>
 
       <section class="content" id="collection">
         <section class="screen-section">
           <div class="gallery-wrap" aria-label="NULLs collection">
-            <div class="gallery-grid">
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n4.png" alt="NULL — Stealth" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n5.png" alt="NULL — Void Eye" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n6.png" alt="NULL — Pixel Bloom" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n7.png" alt="NULL — LED Crown" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n8.png" alt="NULL — Locked In" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n9.png" alt="NULL — Gold Drip" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n10.png" alt="NULL — Chromatic" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n3.png" alt="NULL — Weeping" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n21.png" alt="NULL — Origin" loading="lazy">
-              </div>
-              <div class="gallery-frame">
-                <img src="/assets/nobg/n11.png" alt="NULL — Gridded" loading="lazy">
-              </div>
-            </div>
+            <div class="gallery-grid"></div>
           </div>
+
+          <nav class="gallery-nav" aria-label="Gallery navigation">
+            <button class="gallery-arrow gallery-prev" aria-label="Previous">
+              <img src="/assets/Nlogo.png" alt="">
+            </button>
+            <button class="gallery-arrow gallery-next" aria-label="Next">
+              <img src="/assets/Nlogo.png" alt="">
+            </button>
+          </nav>
 
           <div class="details-widget" id="members">
             <div class="detail-tabs" role="tablist" aria-label="NULLs details">
@@ -1390,19 +1404,6 @@
           </div>
         </section>
 
-        <footer class="site-footer">
-          <div class="site-footer-left">
-            <span>&copy; NULLs 2026</span>
-            <span>4,444 unseen</span>
-            <span>Solana</span>
-          </div>
-          <div class="site-footer-right">
-            <a href="#collection">Collection</a>
-            <a href="#manifesto">No Origin</a>
-            <!-- TODO: replace with your project's X handle -->
-            <a href="https://x.com" target="_blank" rel="noreferrer">X</a>
-          </div>
-        </footer>
       </section>
     </div>
 
@@ -1533,57 +1534,87 @@
         frame();
       })();
 
-      /* ── gallery coverflow carousel ── */
+      /* ── gallery: auto-populate + coverflow + nav ── */
       (() => {
         const grid = document.querySelector('.gallery-grid');
         if (!grid) return;
-        const frames = [...grid.querySelectorAll('.gallery-frame')];
 
-        function update() {
-          const cx = grid.scrollLeft + grid.clientWidth / 2;
-          frames.forEach(f => {
-            const fc = f.offsetLeft + f.offsetWidth / 2;
-            const dist = Math.abs(cx - fc);
-            const step = f.offsetWidth + 20; // card width + gap
-            // t: 0 = centered, 1+ = one card away
-            const t = Math.min(dist / step, 1);
-            // center = scale(1.0), one step = scale(0.5) → 2× size difference
-            const scale = 1.0 - t * 0.5;
-            const opacity = 1.0 - t * 0.6;
-            f.style.transform = `scale(${scale.toFixed(4)})`;
-            f.style.opacity = opacity.toFixed(4);
+        /* probe n1…n99 in parallel, add those that exist, in order */
+        const probes = Array.from({ length: 99 }, (_, i) => i + 1).map(n =>
+          new Promise(resolve => {
+            const img = new Image();
+            img.onload  = () => resolve({ n, img });
+            img.onerror = () => resolve(null);
+            img.alt = `NULL #${n}`;
+            img.src = `/assets/nobg/n${n}.png`;
+          })
+        );
+
+        Promise.all(probes).then(results => {
+          results
+            .filter(Boolean)
+            .sort((a, b) => a.n - b.n)
+            .forEach(({ img }) => {
+              const frame = document.createElement('div');
+              frame.className = 'gallery-frame';
+              frame.appendChild(img);
+              grid.appendChild(frame);
+            });
+          initCoverflow();
+        });
+
+        function initCoverflow() {
+          let frames = [...grid.querySelectorAll('.gallery-frame')];
+          if (!frames.length) return;
+
+          function update() {
+            frames = [...grid.querySelectorAll('.gallery-frame')];
+            const cx = grid.scrollLeft + grid.clientWidth / 2;
+            frames.forEach(f => {
+              const fc = f.offsetLeft + f.offsetWidth / 2;
+              const dist = Math.abs(cx - fc);
+              const step = f.offsetWidth + 24;
+              const t = Math.min(dist / step, 1);
+              f.style.transform = `scale(${(1 - t * 0.5).toFixed(4)})`;
+              f.style.opacity   = (1 - t * 0.6).toFixed(4);
+            });
+          }
+
+          function scrollToMiddle() {
+            frames = [...grid.querySelectorAll('.gallery-frame')];
+            const mid = frames[Math.floor(frames.length / 2)];
+            if (mid) grid.scrollLeft = mid.offsetLeft + mid.offsetWidth / 2 - grid.clientWidth / 2;
+          }
+
+          function scrollByCard(dir) {
+            const f = frames[0];
+            if (f) grid.scrollBy({ left: dir * (f.offsetWidth + 24), behavior: 'smooth' });
+          }
+
+          grid.addEventListener('scroll', update, { passive: true });
+          window.addEventListener('resize', () => { scrollToMiddle(); update(); });
+
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            scrollToMiddle();
+            update();
+          }));
+
+          /* arrow buttons */
+          const prev = document.querySelector('.gallery-prev');
+          const next = document.querySelector('.gallery-next');
+          if (prev) prev.addEventListener('click', () => scrollByCard(-1));
+          if (next) next.addEventListener('click', () => scrollByCard(1));
+
+          /* drag to scroll */
+          let down = false, sx, sl;
+          grid.addEventListener('mousedown', e => { down = true; sx = e.pageX; sl = grid.scrollLeft; });
+          window.addEventListener('mouseup',  () => { down = false; });
+          grid.addEventListener('mousemove', e => {
+            if (!down) return;
+            e.preventDefault();
+            grid.scrollLeft = sl - (e.pageX - sx) * 1.5;
           });
         }
-
-        grid.addEventListener('scroll', update, { passive: true });
-        window.addEventListener('resize', () => {
-          scrollToMiddle();
-          update();
-        });
-
-        /* start on the middle card */
-        function scrollToMiddle() {
-          const mid = frames[Math.floor(frames.length / 2)];
-          grid.scrollLeft = mid.offsetLeft + mid.offsetWidth / 2 - grid.clientWidth / 2;
-        }
-
-        /* wait for layout before scrolling */
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          scrollToMiddle();
-          update();
-        }));
-
-        /* drag to scroll */
-        let down = false, sx, sl;
-        grid.addEventListener('mousedown', e => {
-          down = true; sx = e.pageX; sl = grid.scrollLeft;
-        });
-        window.addEventListener('mouseup', () => { down = false; });
-        grid.addEventListener('mousemove', e => {
-          if (!down) return;
-          e.preventDefault();
-          grid.scrollLeft = sl - (e.pageX - sx) * 1.5;
-        });
       })();
     </script>
   </body>
