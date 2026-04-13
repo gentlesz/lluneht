@@ -1209,7 +1209,7 @@
         const loadingLabel = document.getElementById("loading-label");
 
         const updateLoader = (loaded, total) => {
-          const progress = total > 0 ? Math.round((loaded / total) * 100) : 100;
+          const progress = total > 0 ? Math.min(99, Math.round((loaded / total) * 100)) : 0;
           loadingBarFill.style.width = `${progress}%`;
           loadingBarFill.parentElement.setAttribute("aria-valuenow", String(progress));
           loadingLabel.textContent = `Loading ${progress}%`;
@@ -1246,6 +1246,9 @@
             await new Promise((resolve) => window.addEventListener("load", resolve, { once: true }));
           }
 
+          loadingBarFill.style.width = '100%';
+          loadingBarFill.parentElement.setAttribute("aria-valuenow", "100");
+          loadingLabel.textContent = 'Loading 100%';
           loadingScreen.classList.add("hidden");
           document.body.classList.remove("is-loading");
         };
