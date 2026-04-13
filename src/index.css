@@ -842,6 +842,60 @@ body.block-hover .hero-caption {
   background: linear-gradient(270deg, #040404 0%, transparent 100%);
 }
 
+/* ── gallery nav buttons ── */
+
+.gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 12;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.gallery-nav img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  filter: invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.28));
+  display: block;
+  opacity: 0.52;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.gallery-nav:hover img {
+  opacity: 1;
+}
+
+.gallery-nav--left {
+  left: 18px;
+}
+
+.gallery-nav--left img {
+  transform: scaleX(-1);
+}
+
+.gallery-nav--left:hover img {
+  transform: scaleX(-1) scale(1.14);
+}
+
+.gallery-nav--right {
+  right: 18px;
+}
+
+.gallery-nav--right:hover img {
+  transform: scale(1.14);
+}
+
+@media (max-width: 760px) {
+  .gallery-nav img {
+    width: 34px;
+    height: 34px;
+  }
+}
+
 @media (max-width: 980px) {
   .detail-tabs {
     grid-template-columns: 1fr;
