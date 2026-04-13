@@ -438,7 +438,7 @@ export default function App() {
               </a>
             </div>
             <div className="nav-right">
-              <a href="#">Buy Coin</a>
+              <a href="https://t.me/nulls_portal" target="_blank" rel="noreferrer">Telegram</a>
             </div>
           </header>
 
