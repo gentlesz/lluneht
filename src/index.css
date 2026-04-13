@@ -852,10 +852,21 @@ body.block-hover .hero-caption {
 }
 
 .gallery-nav {
-  background: none;
-  border: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.04);
   cursor: pointer;
-  padding: 10px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  transition: border-color 220ms ease, background 220ms ease;
+}
+
+.gallery-nav:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .gallery-nav img {
