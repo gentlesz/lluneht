@@ -1,19 +1,27 @@
 use askama::Template;
 use axum::{
+    extract::State,
     response::{Html, IntoResponse},
     routing::get,
     Router,
 };
-use std::{fs, net::SocketAddr, time::Duration};
+use std::{fs, net::SocketAddr, sync::Arc};
 use tower_http::services::ServeDir;
 
 #[tokio::main]
 async fn main() {
+    let images = Arc::new(collection_images());
+
     let app = Router::new()
         .route("/", get(index))
-        .nest_service("/assets", ServeDir::new("assets"));
+        .nest_service("/assets", ServeDir::new("assets"))
+        .with_state(images);
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    let port: u16 = std::env::var("PORT")
+        .ok()
+        .and_then(|p| p.parse().ok())
+        .unwrap_or(3000);
+    let addr = SocketAddr::from(([0, 0, 0, 0], port));
     let listener = tokio::net::TcpListener::bind(addr)
         .await
         .expect("failed to bind TCP listener");
@@ -26,9 +34,9 @@ async fn main() {
         .expect("server error");
 }
 
-async fn index() -> impl IntoResponse {
+async fn index(State(images): State<Arc<Vec<String>>>) -> impl IntoResponse {
     let page = LandingPageTemplate {
-        images: collection_images(),
+        images: images.as_ref().clone(),
     };
 
     Html(page.render().expect("failed to render landing page"))
@@ -87,7 +95,6 @@ async fn shutdown_signal() {
     tokio::select! {
         _ = ctrl_c => {},
         _ = terminate => {},
-        _ = tokio::time::sleep(Duration::from_secs(60 * 60 * 24)) => {},
     }
 }
 
