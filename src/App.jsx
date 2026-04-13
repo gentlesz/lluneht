@@ -481,13 +481,6 @@ export default function App() {
           <section className="screen-section">
             {/* Gallery */}
             <div className="gallery-wrap" aria-label="NULLs collection">
-              <button
-                className="gallery-nav gallery-nav--left"
-                aria-label="Previous"
-                onClick={() => scrollByCard(-1)}
-              >
-                <img src="/assets/Nlogo.png" alt="" />
-              </button>
               <div className="gallery-grid" ref={galleryGridRef}>
                 {GALLERY_IMAGES.map((src, i) => (
                   <div className="gallery-frame" key={src}>
@@ -495,6 +488,15 @@ export default function App() {
                   </div>
                 ))}
               </div>
+            </div>
+            <div className="gallery-nav-row">
+              <button
+                className="gallery-nav gallery-nav--left"
+                aria-label="Previous"
+                onClick={() => scrollByCard(-1)}
+              >
+                <img src="/assets/Nlogo.png" alt="" />
+              </button>
               <button
                 className="gallery-nav gallery-nav--right"
                 aria-label="Next"
