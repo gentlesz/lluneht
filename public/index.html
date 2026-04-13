@@ -114,10 +114,14 @@
       }
 
       .loading-label {
-        font-size: 0.66rem;
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-        color: rgba(255, 255, 255, 0.44);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(0.95rem, 2.2vw, 1.25rem);
+        letter-spacing: 0.04em;
+        color: rgba(255, 255, 255, 0.78);
+        font-style: italic;
+        text-shadow:
+          0 0 12px rgba(255, 255, 255, 0.44),
+          0 0 32px rgba(255, 255, 255, 0.16);
       }
 
       .loading-bar-fill {
@@ -125,7 +129,6 @@
         width: 0%;
         height: 100%;
         background: linear-gradient(90deg, #f5f5f5 0%, #9e9e9e 100%);
-        transition: width 180ms ease;
       }
 
       @keyframes logo-strobe {
@@ -1158,7 +1161,7 @@
               <span class="story-card-label">The Art</span>
               <h3>Craft.</h3>
               <p>
-                111 unique traits across 8 categories: face treatments, hair, outfits, and
+                150 unique traits across 8 categories: face treatments, hair, outfits, and
                 accessories. Each NULL is a one-of-a-kind convergence built from designed elements.
               </p>
             </article>
@@ -1208,11 +1211,32 @@
         const loadingBarFill = document.getElementById("loading-bar-fill");
         const loadingLabel = document.getElementById("loading-label");
 
+        let displayProgress = 0;
+        let targetProgress = 0;
+        let loaderRaf;
+
+        const renderProgress = (p) => {
+          const pInt = Math.floor(p);
+          loadingBarFill.style.width = `${p.toFixed(1)}%`;
+          loadingBarFill.parentElement.setAttribute("aria-valuenow", String(pInt));
+          loadingLabel.textContent = `Loading ${pInt}%`;
+        };
+
+        const animateTick = () => {
+          const diff = targetProgress - displayProgress;
+          if (diff > 0.05) {
+            displayProgress += Math.max(0.4, diff * 0.08);
+            if (displayProgress > targetProgress) displayProgress = targetProgress;
+            renderProgress(displayProgress);
+          }
+          loaderRaf = requestAnimationFrame(animateTick);
+        };
+
+        loaderRaf = requestAnimationFrame(animateTick);
+
         const updateLoader = (loaded, total) => {
-          const progress = total > 0 ? Math.min(99, Math.round((loaded / total) * 100)) : 0;
-          loadingBarFill.style.width = `${progress}%`;
-          loadingBarFill.parentElement.setAttribute("aria-valuenow", String(progress));
-          loadingLabel.textContent = `Loading ${progress}%`;
+          const raw = total > 0 ? (loaded / total) * 99 : 0;
+          targetProgress = Math.max(targetProgress, raw);
         };
 
         const preloadImage = (src) => new Promise((resolve) => {
@@ -1246,9 +1270,16 @@
             await new Promise((resolve) => window.addEventListener("load", resolve, { once: true }));
           }
 
-          loadingBarFill.style.width = '100%';
-          loadingBarFill.parentElement.setAttribute("aria-valuenow", "100");
-          loadingLabel.textContent = 'Loading 100%';
+          targetProgress = 100;
+          await new Promise(resolve => {
+            const waitFor100 = () => {
+              if (displayProgress >= 99.9) { resolve(); }
+              else { requestAnimationFrame(waitFor100); }
+            };
+            requestAnimationFrame(waitFor100);
+          });
+          cancelAnimationFrame(loaderRaf);
+          renderProgress(100);
           loadingScreen.classList.add("hidden");
           document.body.classList.remove("is-loading");
         };
