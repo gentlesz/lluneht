@@ -236,6 +236,14 @@ export default function App() {
     }
   }, [])
 
+  const scrollByCard = (dir) => {
+    const grid = galleryGridRef.current
+    if (!grid) return
+    const frame = grid.querySelector('.gallery-frame')
+    if (!frame) return
+    grid.scrollBy({ left: dir * (frame.offsetWidth + 24), behavior: 'smooth' })
+  }
+
   // Gallery coverflow carousel
   useEffect(() => {
     const grid = galleryGridRef.current
@@ -289,21 +297,74 @@ export default function App() {
     }
     const onMouseUp = () => { down = false }
     const onMouseMove = (e) => {
-      if (!down) return
-      e.preventDefault()
-      grid.scrollLeft = sl - (e.pageX - sx) * 1.5
+      if (down) {
+        e.preventDefault()
+        grid.scrollLeft = sl - (e.pageX - sx) * 1.5
+        return
+      }
+      // hover auto-scroll: update tracked x
+      const rect = grid.getBoundingClientRect()
+      hoverMouseX = e.clientX - rect.left
     }
 
+    // Hover auto-scroll
+    let hoverRaf = null
+    let hoverMouseX = grid.clientWidth / 2
+    let isHovering = false
+
+    const startHoverScroll = () => {
+      const tick = () => {
+        if (!isHovering || down) { hoverRaf = null; return }
+        const center = grid.clientWidth / 2
+        const norm = (hoverMouseX - center) / center // -1 … 1
+        const speed = Math.sign(norm) * Math.pow(Math.abs(norm), 2) * 5
+        if (Math.abs(speed) > 0.1) {
+          grid.scrollLeft += speed
+          update()
+        }
+        hoverRaf = requestAnimationFrame(tick)
+      }
+      hoverRaf = requestAnimationFrame(tick)
+    }
+
+    const onMouseEnter = () => {
+      isHovering = true
+      if (!hoverRaf) startHoverScroll()
+    }
+    const onMouseLeave = () => {
+      isHovering = false
+      if (hoverRaf) { cancelAnimationFrame(hoverRaf); hoverRaf = null }
+    }
+
+    grid.addEventListener('mouseenter', onMouseEnter)
+    grid.addEventListener('mouseleave', onMouseLeave)
     grid.addEventListener('mousedown', onMouseDown)
     window.addEventListener('mouseup', onMouseUp)
     grid.addEventListener('mousemove', onMouseMove)
 
+    // Page scroll → advance carousel
+    let lastScrollY = window.scrollY
+    const onWindowScroll = () => {
+      const delta = window.scrollY - lastScrollY
+      lastScrollY = window.scrollY
+      const rect = grid.getBoundingClientRect()
+      if (rect.bottom > 0 && rect.top < window.innerHeight) {
+        grid.scrollLeft += delta * 0.6
+        update()
+      }
+    }
+    window.addEventListener('scroll', onWindowScroll, { passive: true })
+
     return () => {
       grid.removeEventListener('scroll', update)
       window.removeEventListener('resize', onResize)
+      grid.removeEventListener('mouseenter', onMouseEnter)
+      grid.removeEventListener('mouseleave', onMouseLeave)
       grid.removeEventListener('mousedown', onMouseDown)
       window.removeEventListener('mouseup', onMouseUp)
       grid.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('scroll', onWindowScroll)
+      if (hoverRaf) cancelAnimationFrame(hoverRaf)
     }
   }, [])
 
@@ -377,7 +438,7 @@ export default function App() {
               </a>
             </div>
             <div className="nav-right">
-              <a href="#">Buy Coin</a>
+              <a href="https://t.me/nulls_portal" target="_blank" rel="noreferrer">Telegram</a>
             </div>
           </header>
 
@@ -427,6 +488,22 @@ export default function App() {
                   </div>
                 ))}
               </div>
+            </div>
+            <div className="gallery-nav-row">
+              <button
+                className="gallery-nav gallery-nav--left"
+                aria-label="Previous"
+                onClick={() => scrollByCard(-1)}
+              >
+                <img src="/assets/Nlogo.png" alt="" />
+              </button>
+              <button
+                className="gallery-nav gallery-nav--right"
+                aria-label="Next"
+                onClick={() => scrollByCard(1)}
+              >
+                <img src="/assets/Nlogo.png" alt="" />
+              </button>
             </div>
 
             {/* Details widget */}
