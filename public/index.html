@@ -98,11 +98,26 @@
         animation: logo-strobe 0.5s steps(2, end) infinite;
       }
 
-      .loading-bar {
+      .loading-bar-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
         width: min(340px, 68vw);
+      }
+
+      .loading-bar {
+        width: 100%;
         height: 7px;
         border: 1px solid rgba(255, 255, 255, 0.36);
         background: rgba(255, 255, 255, 0.06);
+      }
+
+      .loading-label {
+        font-size: 0.66rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: rgba(255, 255, 255, 0.44);
       }
 
       .loading-bar-fill {
@@ -1001,8 +1016,11 @@
   <body class="is-loading">
     <div class="loading-screen" id="loading-screen" aria-live="polite" aria-label="Loading page">
       <img src="/assets/Nlogo.png" alt="NULLs loading logo" class="loading-logo">
-      <div class="loading-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-        <span class="loading-bar-fill" id="loading-bar-fill"></span>
+      <div class="loading-bar-wrap">
+        <div class="loading-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span class="loading-bar-fill" id="loading-bar-fill"></span>
+        </div>
+        <span class="loading-label" id="loading-label">Loading 0%</span>
       </div>
     </div>
 
@@ -1188,11 +1206,13 @@
         const storyCards = Array.from(document.querySelectorAll(".story-card"));
         const loadingScreen = document.getElementById("loading-screen");
         const loadingBarFill = document.getElementById("loading-bar-fill");
+        const loadingLabel = document.getElementById("loading-label");
 
         const updateLoader = (loaded, total) => {
-          const progress = total > 0 ? Math.round((loaded / total) * 100) : 100;
+          const progress = total > 0 ? Math.min(99, Math.round((loaded / total) * 100)) : 0;
           loadingBarFill.style.width = `${progress}%`;
           loadingBarFill.parentElement.setAttribute("aria-valuenow", String(progress));
+          loadingLabel.textContent = `Loading ${progress}%`;
         };
 
         const preloadImage = (src) => new Promise((resolve) => {
@@ -1226,6 +1246,9 @@
             await new Promise((resolve) => window.addEventListener("load", resolve, { once: true }));
           }
 
+          loadingBarFill.style.width = '100%';
+          loadingBarFill.parentElement.setAttribute("aria-valuenow", "100");
+          loadingLabel.textContent = 'Loading 100%';
           loadingScreen.classList.add("hidden");
           document.body.classList.remove("is-loading");
         };
