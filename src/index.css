@@ -425,7 +425,7 @@ a {
 
 .hero-nav {
   position: absolute;
-  top: calc(var(--cover-size, 300px) * 0.5);
+  top: 50%;
   transform: translateY(-50%);
   z-index: 12;
   width: 58px;
@@ -1061,11 +1061,7 @@ body.block-hover .hero-caption {
   .wordmark {
     font-size: clamp(3rem, 18vw, 5.5rem);
   }
-  .hero-nav {
-    width: 40px;
-    height: 40px;
-    top: calc(var(--cover-size, 160px) * 0.5);
-  }
+  .hero-nav { width: 40px; height: 40px; }
   .hero-nav img { width: 18px; height: 18px; }
   .hero-carousel {
     --cover-size: 160px;

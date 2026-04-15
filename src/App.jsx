@@ -258,8 +258,8 @@ export default function App() {
     const carousel = heroCarouselRef.current
     if (!carousel) return
     const item = carousel.querySelector('li')
-    if (!item) return
-    carousel.scrollBy({ left: dir * (item.offsetWidth + 18), behavior: 'smooth' })
+    const step = item ? item.offsetWidth + Math.round(item.offsetWidth * 0.06) : 320
+    carousel.scrollLeft += dir * step
   }
 
   // Center hero carousel on mount
