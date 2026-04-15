@@ -294,8 +294,7 @@ export default function App() {
         aria-label="Loading page"
       >
         <img src="/assets/Nlogo.png" alt="NULLs loading logo" className="loading-logo" />
-        <img src="/assets/pumpL.svg" alt="Printr" className="printr-logo-load" />
-        <div className="loading-bar-wrap">
+<div className="loading-bar-wrap">
           <div
             className="loading-bar"
             role="progressbar"
@@ -368,7 +367,6 @@ export default function App() {
               <a href="/" aria-label="NULLs home">
                 <img src="/assets/Nlogo.png" alt="NULLs mark" />
               </a>
-              <img src="/assets/pumpL.svg" alt="Printr" className="printr-logo-nav" />
             </div>
             <div className="nav-right">
               <a href="https://t.me/nulls_portal" target="_blank" rel="noreferrer">Telegram</a>

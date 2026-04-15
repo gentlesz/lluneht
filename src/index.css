@@ -58,8 +58,8 @@ body.is-loading {
 }
 
 .loading-logo {
-  width: clamp(80px, 12vw, 160px);
-  height: clamp(80px, 12vw, 160px);
+  width: clamp(160px, 22vw, 300px);
+  height: clamp(160px, 22vw, 300px);
   object-fit: contain;
   animation: logo-strobe 0.5s steps(2, end) infinite;
 }
@@ -392,8 +392,8 @@ a {
 }
 
 .nav-center img {
-  width: 62px;
-  height: 62px;
+  width: 90px;
+  height: 90px;
   object-fit: contain;
   filter: invert(1) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.18));
   animation: hover-mark 5.6s ease-in-out infinite;
@@ -1081,11 +1081,8 @@ body.block-hover .hero-caption {
     gap: 10px;
   }
   .nav-center img {
-    width: 46px;
-    height: 46px;
-  }
-  .printr-logo-nav {
-    height: 22px;
+    width: 66px;
+    height: 66px;
   }
   .hero {
     padding: 100px 18px 100px;
