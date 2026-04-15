@@ -494,18 +494,23 @@ a {
 
 .scroll-prompt {
   position: absolute;
-  left: 50%;
+  right: 28px;
   bottom: 1.25rem;
   z-index: 4;
-  transform: translateX(-50%);
   display: grid;
   justify-items: center;
   gap: 0.8rem;
-  color: rgba(43, 43, 41, 0.46);
+  color: rgba(255, 255, 255, 0.46);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.66rem;
   opacity: calc(1 - var(--landing-progress) * 1.4);
+  animation: scroll-jump 1.6s ease-in-out infinite;
+}
+
+@keyframes scroll-jump {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(7px); }
 }
 
 .scroll-track {
@@ -1015,6 +1020,8 @@ body.block-hover .hero-caption {
   .wordmark {
     font-size: clamp(3rem, 18vw, 5.5rem);
   }
+  .hero-nav { width: 40px; height: 40px; }
+  .hero-nav img { width: 18px; height: 18px; }
   .hero-carousel {
     --cover-size: 160px;
   }
