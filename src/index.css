@@ -386,10 +386,9 @@ a {
   left: 50%;
   transform: translateX(-50%);
   top: 10px;
-  width: 80px;
-  height: 80px;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .nav-center img {
@@ -398,6 +397,21 @@ a {
   object-fit: contain;
   filter: invert(1) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.18));
   animation: hover-mark 5.6s ease-in-out infinite;
+}
+
+.printr-logo-nav {
+  height: 32px;
+  width: auto;
+  fill: #fff;
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.22));
+}
+
+.printr-logo-load {
+  width: clamp(140px, 28vw, 260px);
+  height: auto;
+  fill: #111;
+  opacity: 0.82;
 }
 
 @keyframes hover-mark {
@@ -1066,12 +1080,14 @@ body.block-hover .hero-caption {
   }
   .nav-center {
     top: 6px;
-    width: 60px;
-    height: 60px;
+    gap: 10px;
   }
   .nav-center img {
     width: 46px;
     height: 46px;
+  }
+  .printr-logo-nav {
+    height: 22px;
   }
   .hero {
     padding: 100px 18px 100px;
