@@ -15,7 +15,7 @@ const FAQS = [
   { q: 'What blockchain is NULLs on?',    a: 'Solana. Fast execution, low fees, and native to culture-first drops.' },
   { q: 'What wallet do I need?',          a: 'Any Solana wallet — Phantom, Backpack, or Solflare all work.' },
   { q: 'What is CC0?',                    a: 'CC0 means no rights reserved. You own your NULL fully and can use it commercially, personally, or however you choose — no permission needed.' },
-  { q: 'What is $NULLS?',                 a: '$NULLS is the memecoin companion launched on pump.fun alongside the collection. Coin meets identity.' },
+  { q: 'What is $NULLS?',                 a: '$NULLS is the memecoin companion launched on Printr alongside the collection. Coin meets identity.' },
   { q: 'How many unique traits are there?', a: '150 unique traits across 8 categories. No two NULLs are identical.' },
   { q: 'When does mint open?',            a: 'Soon. Follow on Telegram and X for the exact date and whitelist info.' },
   { q: 'Why Telegram and not X?',         a: 'Crypto is increasingly shunned on X — accounts get insta-banned, there\'s no real way to build community, and the feed is full of unwanted noise. People fud after exiting, it\'s a toxic culture right now. Telegram is the OG bag-working arena. Real signal, real holders, no algorithm.' },
@@ -472,11 +472,11 @@ export default function App() {
                   role="tab"
                   aria-selected="false"
                   data-label="Launchpad"
-                  data-title="Pump.fun"
+                  data-title="Printr"
                   data-body="Art based memecoin."
                 >
                   <span className="detail-kicker">Launchpad</span>
-                  <strong>Pump.fun</strong>
+                  <strong>Printr</strong>
                   <span>Art based memecoin</span>
                 </button>
                 <button
