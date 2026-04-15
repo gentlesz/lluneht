@@ -313,7 +313,7 @@ export default function App() {
             <p>your NULL is yours - fully, completely, unconditionally</p>
             <p>from Nothing<br />we build something worth staying for</p>
             <p>we create a system<br />where everything returns</p>
-            <p>to $NULLS, the unit of alignment</p>
+            <p>to $NULLS, the unit of alignment, a memecoin based on art where the work has been put in already and lore so vast that it could be expanded as and how the holder wishes and sees fit</p>
           </div>
         </div>
         <button className="dev-note-toggle" onClick={() => setDevNoteOpen(v => !v)}>
