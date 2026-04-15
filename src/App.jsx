@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
+
 const GALLERY_IMAGES = Array.from({ length: 25 }, (_, i) => `/assets/n${i + 1}.png`)
   .sort(() => Math.random() - 0.5)
 
@@ -14,7 +15,7 @@ const FAQS = [
   { q: 'What blockchain is NULLs on?',    a: 'Solana. Fast execution, low fees, and native to culture-first drops.' },
   { q: 'What wallet do I need?',          a: 'Any Solana wallet — Phantom, Backpack, or Solflare all work.' },
   { q: 'What is CC0?',                    a: 'CC0 means no rights reserved. You own your NULL fully and can use it commercially, personally, or however you choose — no permission needed.' },
-  { q: 'What is $NULLS?',                 a: '$NULLS is the memecoin companion launched on pump.fun alongside the collection. Coin meets identity.' },
+  { q: 'What is $NULLS?',                 a: '$NULLS is the memecoin companion launched on Printr alongside the collection — the first art based coin on Printr. Coin meets identity.' },
   { q: 'How many unique traits are there?', a: '150 unique traits across 8 categories. No two NULLs are identical.' },
   { q: 'When does mint open?',            a: 'Soon. Follow on Telegram and X for the exact date and whitelist info.' },
 ]
@@ -293,6 +294,7 @@ export default function App() {
         aria-label="Loading page"
       >
         <img src="/assets/Nlogo.png" alt="NULLs loading logo" className="loading-logo" />
+        <img src="/assets/printr.svg" alt="Printr" className="printr-logo-load" />
         <div className="loading-bar-wrap">
           <div
             className="loading-bar"
@@ -366,6 +368,7 @@ export default function App() {
               <a href="/" aria-label="NULLs home">
                 <img src="/assets/Nlogo.png" alt="NULLs mark" />
               </a>
+              <img src="/assets/printr.svg" alt="Printr" className="printr-logo-nav" />
             </div>
             <div className="nav-right">
               <a href="https://t.me/nulls_portal" target="_blank" rel="noreferrer">Telegram</a>
@@ -437,12 +440,12 @@ export default function App() {
                   role="tab"
                   aria-selected="false"
                   data-label="Launchpad"
-                  data-title="Pump.fun"
-                  data-body="Fast attention, low friction, native meme distribution."
+                  data-title="Printr"
+                  data-body="First art based coin on Printr."
                 >
                   <span className="detail-kicker">Launchpad</span>
-                  <strong>Pump.fun</strong>
-                  <span>Direct memecoin launch</span>
+                  <strong>Printr</strong>
+                  <span>First art based coin on Printr</span>
                 </button>
                 <button
                   className="detail-tab"
