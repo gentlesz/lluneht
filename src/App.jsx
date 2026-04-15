@@ -21,8 +21,7 @@ const FAQS = [
 
 export default function App() {
   const loadingScreenRef = useRef(null)
-  const loadingBarFillRef = useRef(null)
-  const loadingLabelRef = useRef(null)
+  const loadingVideoRef = useRef(null)
   const pointerFieldRef = useRef(null)
   const noiseRef = useRef(null)
   const displacementRef = useRef(null)
@@ -31,91 +30,39 @@ export default function App() {
   const heroCarouselRef = useRef(null)
   const [openFaq, setOpenFaq] = useState(null)
 
-  // Loading animation effect
+  // Loading screen: play intro video, then hide
   useEffect(() => {
     const loadingScreen = loadingScreenRef.current
-    const loadingBarFill = loadingBarFillRef.current
-    const loadingLabel = loadingLabelRef.current
-    if (!loadingScreen || !loadingBarFill || !loadingLabel) return
+    const video = loadingVideoRef.current
+    if (!loadingScreen) return
 
     document.body.classList.add('is-loading')
 
-    let displayProgress = 0
-    let targetProgress = 0
-    let loaderRaf
-
-    const renderProgress = (p) => {
-      const pInt = Math.floor(p)
-      loadingBarFill.style.width = `${p.toFixed(1)}%`
-      loadingBarFill.parentElement.setAttribute('aria-valuenow', String(pInt))
-      loadingLabel.textContent = `Loading ${pInt}%`
-    }
-
-    const animateTick = () => {
-      const diff = targetProgress - displayProgress
-      if (diff > 0.05) {
-        displayProgress += Math.max(0.4, diff * 0.08)
-        if (displayProgress > targetProgress) displayProgress = targetProgress
-        renderProgress(displayProgress)
-      }
-      loaderRaf = requestAnimationFrame(animateTick)
-    }
-
-    loaderRaf = requestAnimationFrame(animateTick)
-
-    const updateLoader = (loaded, total) => {
-      const raw = total > 0 ? (loaded / total) * 99 : 0
-      targetProgress = Math.max(targetProgress, raw)
-    }
-
+    // Preload gallery images in the background while video plays
     const preloadImage = (src) => new Promise((resolve) => {
       const img = new Image()
       img.onload = resolve
       img.onerror = resolve
       img.src = src
     })
+    Promise.all(['/assets/Nlogo.png', ...GALLERY_IMAGES].map(preloadImage))
 
-    const sources = [
-      '/assets/Nlogo.png',
-      ...GALLERY_IMAGES,
-    ]
-
-    const preloadAllAssets = async () => {
-      let loaded = 0
-      updateLoader(loaded, sources.length)
-
-      await Promise.all(
-        sources.map((src) =>
-          preloadImage(src).then(() => {
-            loaded += 1
-            updateLoader(loaded, sources.length)
-          })
-        )
-      )
-
-      if (document.readyState !== 'complete') {
-        await new Promise((resolve) => window.addEventListener('load', resolve, { once: true }))
-      }
-
-      targetProgress = 100
-      await new Promise((resolve) => {
-        const waitFor100 = () => {
-          if (displayProgress >= 99.9) { resolve() }
-          else { requestAnimationFrame(waitFor100) }
-        }
-        requestAnimationFrame(waitFor100)
-      })
-      cancelAnimationFrame(loaderRaf)
-      renderProgress(100)
+    const hideLoader = () => {
       loadingScreen.classList.add('hidden')
       document.body.classList.remove('is-loading')
     }
 
-    preloadAllAssets()
+    // Fallback: hide after 12s if video never fires 'ended'
+    const fallback = setTimeout(hideLoader, 12000)
 
-    return () => {
-      cancelAnimationFrame(loaderRaf)
+    if (video) {
+      video.addEventListener('ended', () => {
+        clearTimeout(fallback)
+        hideLoader()
+      }, { once: true })
     }
+
+    return () => clearTimeout(fallback)
   }, [])
 
   // Pointer, ripple, scroll, SVG noise effect
@@ -278,22 +225,17 @@ export default function App() {
         className="loading-screen"
         id="loading-screen"
         ref={loadingScreenRef}
-        aria-live="polite"
-        aria-label="Loading page"
+        aria-label="Loading"
       >
-        <img src="/assets/Nlogo.png" alt="NULLs loading logo" className="loading-logo" />
-        <div className="loading-bar-wrap">
-          <div
-            className="loading-bar"
-            role="progressbar"
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-valuenow={0}
-          >
-            <span className="loading-bar-fill" ref={loadingBarFillRef}></span>
-          </div>
-          <span className="loading-label" ref={loadingLabelRef}>Loading 0%</span>
-        </div>
+        <video
+          ref={loadingVideoRef}
+          className="loading-video"
+          src="/assets/welcome11Op.mp4"
+          autoPlay
+          muted
+          playsInline
+          aria-hidden="true"
+        />
       </div>
 
       {/* SVG filter for wordmark distortion */}
