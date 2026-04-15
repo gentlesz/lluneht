@@ -437,7 +437,7 @@ export default function App() {
             </div>
             <div className="hero-bottom">
               <div className="hero-cta">
-                <a href="https://pump.fun/coin/9JZgpMVJEPdVRe4ZBpPB5Qfn1LCWDGRrGTPSUcchpump" className="cta-btn">Buy Coin</a>
+                <a href="https://pump.fun/coin/8U9QsaqGnwSyjuaN3Ym4tNvXttLjfgRaFfSPH2BYpump" className="cta-btn">Buy Coin</a>
                 <a href="https://launchmynft.io/sol/22942" target="_blank" rel="noreferrer" className="cta-btn">Mint NFT</a>
               </div>
             </div>
