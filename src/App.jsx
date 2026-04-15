@@ -1,7 +1,26 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const GALLERY_IMAGES = Array.from({ length: 25 }, (_, i) => `/assets/n${i + 1}.png`)
   .sort(() => Math.random() - 0.5)
+
+const MINTED = 0
+const TOTAL = 4444
+
+const ROADMAP = [
+  { phase: '01', title: 'Mint',        desc: 'Public mint opens. 4,444 NULLs enter the world.',                      active: true  },
+  { phase: '02', title: 'Holder Drop', desc: 'Exclusive airdrop for all verified NULL holders.',                      active: false },
+  { phase: '03', title: 'CC0 Release', desc: 'Full commercial rights granted. Your NULL is yours completely.',        active: false },
+  { phase: '04', title: 'DAO',         desc: 'Holder-governed treasury and voting go live. Every NULL is a vote.',   active: false },
+]
+
+const FAQS = [
+  { q: 'What blockchain is NULLs on?',    a: 'Solana. Fast execution, low fees, and native to culture-first drops.' },
+  { q: 'What wallet do I need?',          a: 'Any Solana wallet — Phantom, Backpack, or Solflare all work.' },
+  { q: 'What is CC0?',                    a: 'CC0 means no rights reserved. You own your NULL fully and can use it commercially, personally, or however you choose — no permission needed.' },
+  { q: 'What is $NULLS?',                 a: '$NULLS is the memecoin companion launched on pump.fun alongside the collection. Coin meets identity.' },
+  { q: 'How many unique traits are there?', a: '150 unique traits across 8 categories. No two NULLs are identical.' },
+  { q: 'When does mint open?',            a: 'Soon. Follow on Telegram and X for the exact date and whitelist info.' },
+]
 
 export default function App() {
   const loadingScreenRef = useRef(null)
@@ -13,6 +32,7 @@ export default function App() {
   const blindfoldRef = useRef(null)
   const collectionRef = useRef(null)
   const heroCarouselRef = useRef(null)
+  const [openFaq, setOpenFaq] = useState(null)
 
   // Loading animation effect
   useEffect(() => {
@@ -253,6 +273,9 @@ export default function App() {
 
   return (
     <>
+      {/* Grain / film noise overlay */}
+      <div className="grain-overlay" aria-hidden="true" />
+
       {/* Loading screen */}
       <div
         className="loading-screen"
@@ -350,14 +373,20 @@ export default function App() {
                 <span>no origin.</span>
               </div>
             </div>
-            <div className="hero-cta">
-              <a href="#" className="cta-btn">Buy Coin</a>
-              <a
-                href="https://launchmynft.io/sol/22942"
-                target="_blank"
-                rel="noreferrer"
-                className="cta-btn"
-              >Mint NFT</a>
+            <div className="hero-bottom">
+              <div className="mint-bar-wrap">
+                <div className="mint-bar-track">
+                  <div className="mint-bar-fill" style={{ width: `${((MINTED / TOTAL) * 100).toFixed(2)}%` }} />
+                </div>
+                <div className="mint-bar-labels">
+                  <span>{MINTED.toLocaleString()} / {TOTAL.toLocaleString()} minted</span>
+                  <span>{((MINTED / TOTAL) * 100).toFixed(1)}%</span>
+                </div>
+              </div>
+              <div className="hero-cta">
+                <a href="#" className="cta-btn">Buy Coin</a>
+                <a href="https://launchmynft.io/sol/22942" target="_blank" rel="noreferrer" className="cta-btn">Mint NFT</a>
+              </div>
             </div>
             <div className="scroll-prompt" aria-hidden="true">
               <span>Scroll</span>
@@ -442,6 +471,43 @@ export default function App() {
                   permanence. Your NULL is yours fully, completely, unconditionally.
                 </p>
               </article>
+            </div>
+
+            {/* Roadmap */}
+            <div className="roadmap-section" id="roadmap">
+              <p className="section-kicker">Roadmap</p>
+              <div className="roadmap-steps">
+                {ROADMAP.map((step) => (
+                  <div className={`roadmap-step${step.active ? ' active' : ''}`} key={step.phase}>
+                    <div className="roadmap-dot" />
+                    <div className="roadmap-body">
+                      <span className="roadmap-phase">{step.phase}</span>
+                      <h4 className="roadmap-title">{step.title}</h4>
+                      <p className="roadmap-desc">{step.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* FAQ */}
+            <div className="faq-section" id="faq">
+              <p className="section-kicker">FAQ</p>
+              {FAQS.map((item, i) => (
+                <div className="faq-item" key={i}>
+                  <button
+                    className="faq-q"
+                    aria-expanded={openFaq === i}
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  >
+                    {item.q}
+                    <span className="faq-icon" aria-hidden="true">+</span>
+                  </button>
+                  <div className={`faq-a${openFaq === i ? ' open' : ''}`}>
+                    <p>{item.a}</p>
+                  </div>
+                </div>
+              ))}
             </div>
 
             <div className="section-cta">
