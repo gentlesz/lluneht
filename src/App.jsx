@@ -312,6 +312,8 @@ export default function App() {
             <p>NULLs is a statement<br />holder-governed. CC0. built on Solana</p>
             <p>your NULL is yours - fully, completely, unconditionally</p>
             <p>from Nothing<br />we build something worth staying for</p>
+            <p>we create a system<br />where everything returns</p>
+            <p>to $NULLS, the unit of alignment</p>
           </div>
         </div>
         <button className="dev-note-toggle" onClick={() => setDevNoteOpen(v => !v)}>
