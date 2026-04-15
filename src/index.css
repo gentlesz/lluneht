@@ -347,17 +347,27 @@ a {
   padding: 100px 36px 96px;
 }
 
-.hero-word {
+.hero-stack {
   position: relative;
   z-index: 5;
   isolation: isolate;
-  max-width: min(76vw, 1420px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  max-width: min(92vw, 1420px);
   width: 100%;
   text-align: center;
   opacity: calc(1 - var(--landing-progress) * 0.88);
   transform:
     translate3d(calc(var(--drift-x) * 0.04), calc(var(--drift-y) * 0.04 - var(--landing-progress) * 70px), 0)
     scale(calc(1 - var(--landing-progress) * 0.12));
+}
+
+.hero-word {
+  position: relative;
+  width: 100%;
+  text-align: center;
 }
 
 .wordmark {
@@ -382,7 +392,7 @@ a {
 .wordmark-text {
   display: block;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(7rem, 22vw, 18rem);
+  font-size: clamp(4rem, 12vw, 10rem);
   letter-spacing: -0.09em;
   font-weight: 900;
   color: inherit;
@@ -393,7 +403,7 @@ a {
   left: -3.8%;
   right: -3.8%;
   top: 46%;
-  height: clamp(1.55rem, 3.45vw, 3.05rem);
+  height: clamp(0.9rem, 2vw, 1.75rem);
   border-radius: 0.18rem;
   pointer-events: auto;
   background:
@@ -404,6 +414,65 @@ a {
     0 0 28px rgba(255, 255, 255, 0.1);
   transform: translateY(-50%);
   transition: background 280ms ease, box-shadow 280ms ease, opacity 280ms ease;
+}
+
+/* ── hero carousel (3D scroll-driven) ── */
+
+.hero-carousel {
+  --cover-size: 150px;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: calc(var(--cover-size) * 5.4);
+  overflow-x: scroll;
+  overflow-y: visible;
+  display: flex;
+  align-items: center;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  height: calc(var(--cover-size) * 1.9);
+}
+
+.hero-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.hero-carousel li {
+  flex: 0 0 var(--cover-size);
+  aspect-ratio: 1;
+  scroll-snap-align: center;
+  view-timeline-name: --card-in-view;
+  view-timeline-axis: inline;
+  animation: linear adjust-card-z both;
+  animation-timeline: --card-in-view;
+  perspective: 2000px;
+  margin: 0 0.55rem;
+}
+
+.hero-carousel li img {
+  width: var(--cover-size);
+  height: var(--cover-size);
+  object-fit: cover;
+  display: block;
+  -webkit-box-reflect: below 0.55em linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.38));
+  animation: linear rotate-cover both;
+  animation-timeline: --card-in-view;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.1);
+}
+
+@keyframes adjust-card-z {
+  0%   { z-index: 1; }
+  50%  { z-index: 100; }
+  100% { z-index: 1; }
+}
+
+@keyframes rotate-cover {
+  0%   { transform: translateX(-100%) rotateY(-45deg); }
+  35%  { transform: translateX(0) rotateY(-45deg); }
+  50%  { transform: rotateY(0deg) translateZ(1em) scale(1.45); }
+  65%  { transform: translateX(0) rotateY(45deg); }
+  100% { transform: translateX(100%) rotateY(45deg); }
 }
 
 .hero-caption {
@@ -652,9 +721,9 @@ body.block-hover .wordmark-text {
   -webkit-text-fill-color: #2f2f2d;
 }
 
-.hero-word { opacity: 1; }
+.hero-stack { opacity: calc(1 - var(--landing-progress) * 0.88); }
 
-body.block-hover .hero-word:hover { opacity: 1; }
+body.block-hover .hero-stack:hover { opacity: 1; }
 
 body.block-hover .hero-cta .cta-btn {
   color: var(--ink);
@@ -933,7 +1002,11 @@ body.block-hover .hero-caption {
     padding: 120px 18px 110px;
   }
   .wordmark {
-    font-size: clamp(5.2rem, 25vw, 8rem);
+    font-size: clamp(3rem, 18vw, 5.5rem);
+  }
+
+  .hero-carousel {
+    --cover-size: 80px;
   }
   .wordmark-block {
     left: -4.6%;

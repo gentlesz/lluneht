@@ -12,6 +12,7 @@ export default function App() {
   const blindfoldRef = useRef(null)
   const collectionRef = useRef(null)
   const galleryGridRef = useRef(null)
+  const heroCarouselRef = useRef(null)
 
   // Loading animation effect
   useEffect(() => {
@@ -236,6 +237,19 @@ export default function App() {
     }
   }, [])
 
+  // Center hero carousel on mount
+  useEffect(() => {
+    const carousel = heroCarouselRef.current
+    if (!carousel) return
+    const items = [...carousel.querySelectorAll('li')]
+    const mid = items[Math.floor(items.length / 2)]
+    if (mid) {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        carousel.scrollLeft = mid.offsetLeft + mid.offsetWidth / 2 - carousel.clientWidth / 2
+      }))
+    }
+  }, [])
+
   const scrollByCard = (dir) => {
     const grid = galleryGridRef.current
     if (!grid) return
@@ -443,16 +457,25 @@ export default function App() {
           </header>
 
           <div className="hero">
-            <div className="hero-word">
-              <h1 className="wordmark" aria-label="NULLs">
-                <span className="wordmark-text">NULLS</span>
-                <span
-                  className="wordmark-block"
-                  ref={blindfoldRef}
-                  tabIndex={0}
-                  aria-label="Reveal theme"
-                ></span>
-              </h1>
+            <div className="hero-stack">
+              <ul className="hero-carousel" ref={heroCarouselRef} aria-hidden="true">
+                {GALLERY_IMAGES.map((src, i) => (
+                  <li key={src}>
+                    <img src={src} alt="" />
+                  </li>
+                ))}
+              </ul>
+              <div className="hero-word">
+                <h1 className="wordmark" aria-label="NULLs">
+                  <span className="wordmark-text">NULLS</span>
+                  <span
+                    className="wordmark-block"
+                    ref={blindfoldRef}
+                    tabIndex={0}
+                    aria-label="Reveal theme"
+                  ></span>
+                </h1>
+              </div>
             </div>
             <div className="hero-caption">
               <span>A collection of 4,444 unseen.</span>
