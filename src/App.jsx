@@ -3,9 +3,6 @@ import { useEffect, useRef, useState } from 'react'
 const GALLERY_IMAGES = Array.from({ length: 25 }, (_, i) => `/assets/n${i + 1}.png`)
   .sort(() => Math.random() - 0.5)
 
-const MINTED = 0
-const TOTAL = 4444
-
 const ROADMAP = [
   { phase: '01', title: 'Mint',        desc: 'Public mint opens. 4,444 NULLs enter the world.',                      active: true  },
   { phase: '02', title: 'Holder Drop', desc: 'Exclusive airdrop for all verified NULL holders.',                      active: false },
@@ -374,15 +371,6 @@ export default function App() {
               </div>
             </div>
             <div className="hero-bottom">
-              <div className="mint-bar-wrap">
-                <div className="mint-bar-track">
-                  <div className="mint-bar-fill" style={{ width: `${((MINTED / TOTAL) * 100).toFixed(2)}%` }} />
-                </div>
-                <div className="mint-bar-labels">
-                  <span>{MINTED.toLocaleString()} / {TOTAL.toLocaleString()} minted</span>
-                  <span>{((MINTED / TOTAL) * 100).toFixed(1)}%</span>
-                </div>
-              </div>
               <div className="hero-cta">
                 <a href="#" className="cta-btn">Buy Coin</a>
                 <a href="https://launchmynft.io/sol/22942" target="_blank" rel="noreferrer" className="cta-btn">Mint NFT</a>
