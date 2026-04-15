@@ -476,19 +476,19 @@ export default function App() {
                   ></span>
                 </h1>
               </div>
-            </div>
-            <div className="hero-caption">
-              <span>A collection of 4,444 unseen.</span>
-              <span>no origin.</span>
-            </div>
-            <div className="hero-cta">
-              <a href="#" className="cta-btn">Buy Coin</a>
-              <a
-                href="https://launchmynft.io/sol/22942"
-                target="_blank"
-                rel="noreferrer"
-                className="cta-btn"
-              >Mint NFT</a>
+              <div className="hero-caption">
+                <span>A collection of 4,444 unseen.</span>
+                <span>no origin.</span>
+              </div>
+              <div className="hero-cta">
+                <a href="#" className="cta-btn">Buy Coin</a>
+                <a
+                  href="https://launchmynft.io/sol/22942"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="cta-btn"
+                >Mint NFT</a>
+              </div>
             </div>
             <div className="scroll-prompt" aria-hidden="true">
               <span>Scroll</span>
