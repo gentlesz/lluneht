@@ -485,7 +485,7 @@ a {
   letter-spacing: 0.08em;
   display: grid;
   gap: 0.16rem;
-  margin: 28px 0 36px;
+  margin: 24px 0 0;
   opacity: calc(1 - var(--landing-progress) * 1.15);
   transform: translateY(calc(var(--landing-progress) * 26px));
 }
@@ -810,6 +810,10 @@ body.block-hover .hero-caption {
 }
 
 .hero-cta {
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+  transform: translateX(-50%);
   z-index: 4;
   display: flex;
   gap: 12px;
@@ -991,12 +995,17 @@ body.block-hover .hero-caption {
     height: 46px;
   }
   .hero {
-    padding: 120px 18px 110px;
+    padding: 100px 18px 100px;
+  }
+  .hero-stack {
+    margin-top: -6vh;
+  }
+  .hero-cta {
+    bottom: 9%;
   }
   .wordmark {
     font-size: clamp(3rem, 18vw, 5.5rem);
   }
-
   .hero-carousel {
     --cover-size: 80px;
   }

@@ -11,7 +11,6 @@ export default function App() {
   const displacementRef = useRef(null)
   const blindfoldRef = useRef(null)
   const collectionRef = useRef(null)
-  const galleryGridRef = useRef(null)
   const heroCarouselRef = useRef(null)
 
   // Loading animation effect
@@ -250,137 +249,6 @@ export default function App() {
     }
   }, [])
 
-  const scrollByCard = (dir) => {
-    const grid = galleryGridRef.current
-    if (!grid) return
-    const frame = grid.querySelector('.gallery-frame')
-    if (!frame) return
-    grid.scrollBy({ left: dir * (frame.offsetWidth + 24), behavior: 'smooth' })
-  }
-
-  // Gallery coverflow carousel
-  useEffect(() => {
-    const grid = galleryGridRef.current
-    if (!grid) return
-
-    const frames = [...grid.querySelectorAll('.gallery-frame')]
-
-    const update = () => {
-      const cx = grid.scrollLeft + grid.clientWidth / 2
-      frames.forEach((f) => {
-        const fc = f.offsetLeft + f.offsetWidth / 2
-        const dist = Math.abs(cx - fc)
-        const step = f.offsetWidth + 24
-        const t = Math.min(dist / step, 1)
-        const scale = 1.0 - t * 0.5
-        const opacity = 1.0 - t * 0.6
-        f.style.transform = `scale(${scale.toFixed(4)})`
-        f.style.opacity = opacity.toFixed(4)
-      })
-    }
-
-    const scrollToMiddle = () => {
-      const mid = frames[Math.floor(frames.length / 2)]
-      if (mid) {
-        grid.scrollLeft = mid.offsetLeft + mid.offsetWidth / 2 - grid.clientWidth / 2
-      }
-    }
-
-    grid.addEventListener('scroll', update, { passive: true })
-
-    const onResize = () => {
-      scrollToMiddle()
-      update()
-    }
-    window.addEventListener('resize', onResize)
-
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      scrollToMiddle()
-      update()
-    }))
-
-    // Drag to scroll
-    let down = false
-    let sx = 0
-    let sl = 0
-
-    const onMouseDown = (e) => {
-      down = true
-      sx = e.pageX
-      sl = grid.scrollLeft
-    }
-    const onMouseUp = () => { down = false }
-    const onMouseMove = (e) => {
-      if (down) {
-        e.preventDefault()
-        grid.scrollLeft = sl - (e.pageX - sx) * 1.5
-        return
-      }
-      // hover auto-scroll: update tracked x
-      const rect = grid.getBoundingClientRect()
-      hoverMouseX = e.clientX - rect.left
-    }
-
-    // Hover auto-scroll
-    let hoverRaf = null
-    let hoverMouseX = grid.clientWidth / 2
-    let isHovering = false
-
-    const startHoverScroll = () => {
-      const tick = () => {
-        if (!isHovering || down) { hoverRaf = null; return }
-        const center = grid.clientWidth / 2
-        const norm = (hoverMouseX - center) / center // -1 … 1
-        const speed = Math.sign(norm) * Math.pow(Math.abs(norm), 2) * 5
-        if (Math.abs(speed) > 0.1) {
-          grid.scrollLeft += speed
-          update()
-        }
-        hoverRaf = requestAnimationFrame(tick)
-      }
-      hoverRaf = requestAnimationFrame(tick)
-    }
-
-    const onMouseEnter = () => {
-      isHovering = true
-      if (!hoverRaf) startHoverScroll()
-    }
-    const onMouseLeave = () => {
-      isHovering = false
-      if (hoverRaf) { cancelAnimationFrame(hoverRaf); hoverRaf = null }
-    }
-
-    grid.addEventListener('mouseenter', onMouseEnter)
-    grid.addEventListener('mouseleave', onMouseLeave)
-    grid.addEventListener('mousedown', onMouseDown)
-    window.addEventListener('mouseup', onMouseUp)
-    grid.addEventListener('mousemove', onMouseMove)
-
-    // Page scroll → advance carousel
-    let lastScrollY = window.scrollY
-    const onWindowScroll = () => {
-      const delta = window.scrollY - lastScrollY
-      lastScrollY = window.scrollY
-      const rect = grid.getBoundingClientRect()
-      if (rect.bottom > 0 && rect.top < window.innerHeight) {
-        grid.scrollLeft += delta * 0.6
-        update()
-      }
-    }
-    window.addEventListener('scroll', onWindowScroll, { passive: true })
-
-    return () => {
-      grid.removeEventListener('scroll', update)
-      window.removeEventListener('resize', onResize)
-      grid.removeEventListener('mouseenter', onMouseEnter)
-      grid.removeEventListener('mouseleave', onMouseLeave)
-      grid.removeEventListener('mousedown', onMouseDown)
-      window.removeEventListener('mouseup', onMouseUp)
-      grid.removeEventListener('mousemove', onMouseMove)
-      window.removeEventListener('scroll', onWindowScroll)
-      if (hoverRaf) cancelAnimationFrame(hoverRaf)
-    }
-  }, [])
 
   return (
     <>
@@ -480,15 +348,15 @@ export default function App() {
                 <span>A collection of 4,444 unseen.</span>
                 <span>no origin.</span>
               </div>
-              <div className="hero-cta">
-                <a href="#" className="cta-btn">Buy Coin</a>
-                <a
-                  href="https://launchmynft.io/sol/22942"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="cta-btn"
-                >Mint NFT</a>
-              </div>
+            </div>
+            <div className="hero-cta">
+              <a href="#" className="cta-btn">Buy Coin</a>
+              <a
+                href="https://launchmynft.io/sol/22942"
+                target="_blank"
+                rel="noreferrer"
+                className="cta-btn"
+              >Mint NFT</a>
             </div>
             <div className="scroll-prompt" aria-hidden="true">
               <span>Scroll</span>
@@ -502,33 +370,6 @@ export default function App() {
         {/* Content / Collection */}
         <section className="content" id="collection" ref={collectionRef}>
           <section className="screen-section">
-            {/* Gallery */}
-            <div className="gallery-wrap" aria-label="NULLs collection">
-              <div className="gallery-grid" ref={galleryGridRef}>
-                {GALLERY_IMAGES.map((src, i) => (
-                  <div className="gallery-frame" key={src}>
-                    <img src={src} alt={`NULL ${i + 1}`} loading="lazy" />
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="gallery-nav-row">
-              <button
-                className="gallery-nav gallery-nav--left"
-                aria-label="Previous"
-                onClick={() => scrollByCard(-1)}
-              >
-                <img src="/assets/Nlogo.png" alt="" />
-              </button>
-              <button
-                className="gallery-nav gallery-nav--right"
-                aria-label="Next"
-                onClick={() => scrollByCard(1)}
-              >
-                <img src="/assets/Nlogo.png" alt="" />
-              </button>
-            </div>
-
             {/* Details widget */}
             <div className="details-widget" id="members">
               <div className="detail-tabs" role="tablist" aria-label="NULLs details">
