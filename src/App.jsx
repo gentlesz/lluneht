@@ -69,14 +69,22 @@ export default function App() {
       targetProgress = Math.max(targetProgress, raw)
     }
 
-    const preloadImage = (src) => new Promise((resolve) => {
-      const img = new Image()
-      img.onload = resolve
-      img.onerror = resolve
-      img.src = src
+    const preloadAsset = (src) => new Promise((resolve) => {
+      if (src.endsWith('.mp4') || src.endsWith('.webm')) {
+        const vid = document.createElement('video')
+        vid.preload = 'auto'
+        vid.oncanplaythrough = resolve
+        vid.onerror = resolve
+        vid.src = src
+      } else {
+        const img = new Image()
+        img.onload = resolve
+        img.onerror = resolve
+        img.src = src
+      }
     })
 
-    const sources = ['/assets/Nlogo.png', ...GALLERY_IMAGES]
+    const sources = ['/assets/Nlogo.png', '/assets/welcome11Op.mp4', ...GALLERY_IMAGES]
 
     const preloadAllAssets = async () => {
       let loaded = 0
@@ -84,7 +92,7 @@ export default function App() {
 
       await Promise.all(
         sources.map((src) =>
-          preloadImage(src).then(() => {
+          preloadAsset(src).then(() => {
             loaded += 1
             updateLoader(loaded, sources.length)
           })
