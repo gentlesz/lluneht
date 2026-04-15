@@ -296,21 +296,21 @@ export default function App() {
           </div>
           <div className="dev-note-content">
             <p>The trenches right now are at Nothing</p>
-            <p>you buy a trending animal meme — name unclear, 10 vamps, all roads lead to Nothing</p>
-            <p>you buy a tweet-based coin — bundled to the ceiling, 10 clones follow, all to Nothing</p>
-            <p>you buy a "tech" coin — cashback, fee loops, derivatives… even the creator forks it again — Nothing</p>
-            <p>you buy a charity coin — 10 variations, 10 fee splits, all narratives — Nothing</p>
-            <p>you buy an artist coin — unknown effort, unknown longevity — still Nothing</p>
+            <p>you buy a trending animal meme - name unclear, 10 vamps, all roads lead to Nothing</p>
+            <p>you buy a tweet-based coin - bundled to the ceiling, 10 clones follow, all to Nothing</p>
+            <p>you buy a "tech" coin - cashback, fee loops, derivatives… even the creator forks it again - Nothing</p>
+            <p>you buy a charity coin - 10 variations, 10 fee splits, all narratives - Nothing</p>
+            <p>you buy an artist coin - unknown effort, unknown longevity - still Nothing</p>
             <p>no signal. no conviction. no edge. Nothing<br />volume chasing ghosts, narratives collapsing into Nothing</p>
             <p>so we leaned into it</p>
-            <p>we created Nothing — $NULLS</p>
+            <p>we created Nothing - $NULLS</p>
             <p>4444 high-quality generative pieces</p>
             <p>in a world obsessed with labels, NULLs choose absence<br />a matte-black vessel. a blank face. presence without performance</p>
-            <p>the ticker isn't bonded — it's free. like it should be</p>
-            <p>mint is 0.009 SOL — almost nothing, but something anyone can align on</p>
-            <p>150 unique traits across 8 categories — faces, hair, outfits, accessories<br />each NULL is a one-of-one convergence of intentional design</p>
+            <p>the ticker isn't bonded - it's free. like it should be</p>
+            <p>mint is 0.009 SOL - almost nothing, but something anyone can align on</p>
+            <p>150 unique traits across 8 categories - faces, hair, outfits, accessories<br />each NULL is a one-of-one convergence of intentional design</p>
             <p>NULLs is a statement<br />holder-governed. CC0. built on Solana</p>
-            <p>your NULL is yours — fully, completely, unconditionally</p>
+            <p>your NULL is yours - fully, completely, unconditionally</p>
             <p>from Nothing<br />we build something worth staying for</p>
           </div>
         </div>
