@@ -311,7 +311,7 @@ export default function App() {
       <div className="intro-screen" ref={introScreenRef} aria-label="Intro">
         <video
           className="intro-video"
-          src="/assets/welcome11Op.mp4"
+          src="/assets/welcome11O11.mp4"
           autoPlay
           muted
           playsInline
