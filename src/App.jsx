@@ -15,7 +15,7 @@ const FAQS = [
   { q: 'What blockchain is NULLs on?',    a: 'Solana. Fast execution, low fees, and native to culture-first drops.' },
   { q: 'What wallet do I need?',          a: 'Any Solana wallet — Phantom, Backpack, or Solflare all work.' },
   { q: 'What is CC0?',                    a: 'CC0 means no rights reserved. You own your NULL fully and can use it commercially, personally, or however you choose — no permission needed.' },
-  { q: 'What is $NULLS?',                 a: '$NULLS is the memecoin companion launched on pump.fun alongside the collection. Coin meets identity.' },
+  { q: 'What is $NULLS?',                 a: '$NULLS is the memecoin companion launched on Printr alongside the collection — the first art based coin on Printr. Coin meets identity.' },
   { q: 'How many unique traits are there?', a: '150 unique traits across 8 categories. No two NULLs are identical.' },
   { q: 'When does mint open?',            a: 'Soon. Follow on Telegram and X for the exact date and whitelist info.' },
 ]
