@@ -21,9 +21,9 @@ const FAQS = [
 
 export default function App() {
   const loadingScreenRef = useRef(null)
-  const loadingVideoRef = useRef(null)
   const loadingBarFillRef = useRef(null)
   const loadingLabelRef = useRef(null)
+  const introScreenRef = useRef(null)
   const pointerFieldRef = useRef(null)
   const noiseRef = useRef(null)
   const displacementRef = useRef(null)
@@ -70,21 +70,13 @@ export default function App() {
     }
 
     const preloadAsset = (src) => new Promise((resolve) => {
-      if (src.endsWith('.mp4') || src.endsWith('.webm')) {
-        const vid = document.createElement('video')
-        vid.preload = 'auto'
-        vid.oncanplaythrough = resolve
-        vid.onerror = resolve
-        vid.src = src
-      } else {
-        const img = new Image()
-        img.onload = resolve
-        img.onerror = resolve
-        img.src = src
-      }
+      const img = new Image()
+      img.onload = resolve
+      img.onerror = resolve
+      img.src = src
     })
 
-    const sources = ['/assets/Nlogo.png', '/assets/welcome11Op.mp4', ...GALLERY_IMAGES]
+    const sources = ['/assets/Nlogo.png', ...GALLERY_IMAGES]
 
     const preloadAllAssets = async () => {
       let loaded = 0
@@ -115,6 +107,11 @@ export default function App() {
       renderProgress(100)
       loadingScreen.classList.add('hidden')
       document.body.classList.remove('is-loading')
+      const introScreen = introScreenRef.current
+      if (introScreen) {
+        introScreen.classList.add('visible')
+        document.body.classList.add('is-intro')
+      }
     }
 
     preloadAllAssets()
@@ -274,6 +271,14 @@ export default function App() {
   }, [])
 
 
+  const handleEnter = () => {
+    const introScreen = introScreenRef.current
+    if (introScreen) {
+      introScreen.classList.add('hidden')
+      document.body.classList.remove('is-intro')
+    }
+  }
+
   return (
     <>
       {/* Grain / film noise overlay */}
@@ -288,16 +293,6 @@ export default function App() {
         aria-label="Loading page"
       >
         <img src="/assets/Nlogo.png" alt="NULLs loading logo" className="loading-logo" />
-        <video
-          ref={loadingVideoRef}
-          className="loading-video"
-          src="/assets/welcome11Op.mp4"
-          autoPlay
-          muted
-          playsInline
-          loop
-          aria-hidden="true"
-        />
         <div className="loading-bar-wrap">
           <div
             className="loading-bar"
@@ -310,6 +305,22 @@ export default function App() {
           </div>
           <span className="loading-label" ref={loadingLabelRef}>Loading 0%</span>
         </div>
+      </div>
+
+      {/* Intro video screen */}
+      <div className="intro-screen" ref={introScreenRef} aria-label="Intro">
+        <video
+          className="intro-video"
+          src="/assets/welcome11Op.mp4"
+          autoPlay
+          muted
+          playsInline
+          loop
+          aria-hidden="true"
+        />
+        <button className="intro-enter" onClick={handleEnter}>
+          Enter the Nothing
+        </button>
       </div>
 
       {/* SVG filter for wordmark distortion */}
