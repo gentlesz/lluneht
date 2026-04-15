@@ -1,12 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 
-function PrintrLogo({ className }) {
-  return (
-    <svg className={className} viewBox="0 0 645 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M622.916 29.756v-.074h-25.968l4.995-14.24h-59.664l-11.878 14.24h-433.6L21.384 244.009h570.694l51.041-145.966h51.29l23.905-68.262h-95.397z" />
-    </svg>
-  )
-}
 
 const GALLERY_IMAGES = Array.from({ length: 25 }, (_, i) => `/assets/n${i + 1}.png`)
   .sort(() => Math.random() - 0.5)
@@ -301,7 +294,7 @@ export default function App() {
         aria-label="Loading page"
       >
         <img src="/assets/Nlogo.png" alt="NULLs loading logo" className="loading-logo" />
-        <PrintrLogo className="printr-logo-load" />
+        <img src="/assets/printr.svg" alt="Printr" className="printr-logo-load" />
         <div className="loading-bar-wrap">
           <div
             className="loading-bar"
@@ -375,7 +368,7 @@ export default function App() {
               <a href="/" aria-label="NULLs home">
                 <img src="/assets/Nlogo.png" alt="NULLs mark" />
               </a>
-              <PrintrLogo className="printr-logo-nav" />
+              <img src="/assets/printr.svg" alt="Printr" className="printr-logo-nav" />
             </div>
             <div className="nav-right">
               <a href="https://t.me/nulls_portal" target="_blank" rel="noreferrer">Telegram</a>

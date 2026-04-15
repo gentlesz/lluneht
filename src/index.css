@@ -402,15 +402,13 @@ a {
 .printr-logo-nav {
   height: 32px;
   width: auto;
-  fill: #fff;
+  filter: invert(1) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.22));
   opacity: 0.9;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.22));
 }
 
 .printr-logo-load {
   width: clamp(140px, 28vw, 260px);
   height: auto;
-  fill: #111;
   opacity: 0.82;
 }
 
