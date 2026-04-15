@@ -358,6 +358,7 @@ a {
   max-width: min(92vw, 1420px);
   width: 100%;
   text-align: center;
+  margin-top: -10vh;
   opacity: calc(1 - var(--landing-progress) * 0.88);
   transform:
     translate3d(calc(var(--drift-x) * 0.04), calc(var(--drift-y) * 0.04 - var(--landing-progress) * 70px), 0)
@@ -455,10 +456,8 @@ a {
   height: var(--cover-size);
   object-fit: cover;
   display: block;
-  -webkit-box-reflect: below 0.55em linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.38));
   animation: linear rotate-cover both;
   animation-timeline: --card-in-view;
-  box-shadow: 0 0 14px rgba(255, 255, 255, 0.1);
 }
 
 @keyframes adjust-card-z {
@@ -478,7 +477,7 @@ a {
 .hero-caption {
   position: absolute;
   left: 50%;
-  bottom: 30%;
+  bottom: 20%;
   transform: translateX(-50%);
   z-index: 2;
   max-width: 380px;
@@ -1016,7 +1015,7 @@ body.block-hover .hero-caption {
   }
   .hero-caption {
     width: calc(100% - 42px);
-    bottom: 32%;
+    bottom: 22%;
   }
   .content { padding: 0; }
   .screen-section { padding: 0 0 72px; }
