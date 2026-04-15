@@ -418,6 +418,52 @@ a {
 
 /* ── hero carousel (3D scroll-driven) ── */
 
+.hero-carousel-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.hero-nav {
+  position: absolute;
+  top: calc(var(--cover-size, 300px) * 0.5);
+  transform: translateY(-50%);
+  z-index: 12;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  transition: border-color 220ms ease, background 220ms ease;
+}
+
+.hero-nav:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.hero-nav img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  filter: invert(1) drop-shadow(0 0 6px rgba(255, 255, 255, 0.2));
+  display: block;
+  opacity: 0.55;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.hero-nav:hover img { opacity: 1; }
+
+.hero-nav--left  { left: 6px; }
+.hero-nav--right { right: 6px; }
+
+.hero-nav--left img              { transform: scaleX(-1); }
+.hero-nav--left:hover img        { transform: scaleX(-1) scale(1.12); }
+.hero-nav--right:hover img       { transform: scale(1.12); }
+
 .hero-carousel {
   --cover-size: 300px;
   list-style: none;
@@ -1015,6 +1061,12 @@ body.block-hover .hero-caption {
   .wordmark {
     font-size: clamp(3rem, 18vw, 5.5rem);
   }
+  .hero-nav {
+    width: 40px;
+    height: 40px;
+    top: calc(var(--cover-size, 160px) * 0.5);
+  }
+  .hero-nav img { width: 18px; height: 18px; }
   .hero-carousel {
     --cover-size: 160px;
   }

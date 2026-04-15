@@ -254,6 +254,14 @@ export default function App() {
     }
   }, [])
 
+  const scrollHeroByCard = (dir) => {
+    const carousel = heroCarouselRef.current
+    if (!carousel) return
+    const item = carousel.querySelector('li')
+    if (!item) return
+    carousel.scrollBy({ left: dir * (item.offsetWidth + 18), behavior: 'smooth' })
+  }
+
   // Center hero carousel on mount
   useEffect(() => {
     const carousel = heroCarouselRef.current
@@ -347,13 +355,21 @@ export default function App() {
 
           <div className="hero">
             <div className="hero-stack">
-              <ul className="hero-carousel" ref={heroCarouselRef} aria-hidden="true">
-                {GALLERY_IMAGES.map((src, i) => (
-                  <li key={src}>
-                    <img src={src} alt="" />
-                  </li>
-                ))}
-              </ul>
+              <div className="hero-carousel-wrap">
+                <button className="hero-nav hero-nav--left" aria-label="Previous" onClick={() => scrollHeroByCard(-1)}>
+                  <img src="/assets/Nlogo.png" alt="" />
+                </button>
+                <ul className="hero-carousel" ref={heroCarouselRef} aria-hidden="true">
+                  {GALLERY_IMAGES.map((src, i) => (
+                    <li key={src}>
+                      <img src={src} alt="" />
+                    </li>
+                  ))}
+                </ul>
+                <button className="hero-nav hero-nav--right" aria-label="Next" onClick={() => scrollHeroByCard(1)}>
+                  <img src="/assets/Nlogo.png" alt="" />
+                </button>
+              </div>
               <div className="hero-word">
                 <h1 className="wordmark" aria-label="NULLs">
                   <span className="wordmark-text">NULLS</span>
