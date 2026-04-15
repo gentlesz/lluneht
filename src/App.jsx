@@ -18,6 +18,7 @@ const FAQS = [
   { q: 'What is $NULLS?',                 a: '$NULLS is the memecoin companion launched on pump.fun alongside the collection. Coin meets identity.' },
   { q: 'How many unique traits are there?', a: '150 unique traits across 8 categories. No two NULLs are identical.' },
   { q: 'When does mint open?',            a: 'Soon. Follow on Telegram and X for the exact date and whitelist info.' },
+  { q: 'Why Telegram and not X?',         a: 'Crypto is increasingly shunned on X — accounts get insta-banned, there\'s no real way to build community, and the feed is full of unwanted noise. People fud after exiting, it\'s a toxic culture right now. Telegram is the OG bag-working arena. Real signal, real holders, no algorithm.' },
 ]
 
 export default function App() {
@@ -540,7 +541,7 @@ export default function App() {
             <div className="site-footer-right">
               <a href="#collection">Collection</a>
               <a href="#manifesto">No Origin</a>
-              <a href="https://x.com" target="_blank" rel="noreferrer">X</a>
+              <a href="https://t.me/nulls_portal" target="_blank" rel="noreferrer">Telegram</a>
             </div>
           </footer>
         </section>
