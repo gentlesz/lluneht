@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 const GALLERY_IMAGES = Array.from({ length: 25 }, (_, i) => `/assets/n${i + 1}.png`)
+  .sort(() => Math.random() - 0.5)
 
 export default function App() {
   const loadingScreenRef = useRef(null)
