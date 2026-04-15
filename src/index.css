@@ -495,7 +495,7 @@ a {
 .scroll-prompt {
   position: absolute;
   left: 50%;
-  bottom: 4.75rem;
+  bottom: 1.25rem;
   z-index: 4;
   transform: translateX(-50%);
   display: grid;
